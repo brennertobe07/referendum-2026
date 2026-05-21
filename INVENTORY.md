@@ -93,7 +93,7 @@ Phase 4 reconciliation against the SBE results file
 | april-referendum-absentee | Absentee dashboard (absentee.vadems.org) | https://github.com/brennertobe07/april-referendum-absentee | `C:\Scripts\Python\Python_Absentee\April\april-referendum-absentee\` | cbfbeed 2026-05-12 |
 | va-cure | Cure dashboard (cure.vadems.org) | https://github.com/brennertobe07/va-cure | `C:\Scripts\Python\Python_Absentee\April\va-cure\` | fb3dc91 2026-05-12 |
 | april-referendum-enr | ENR results dashboard (enr.vadems.org) | https://github.com/brennertobe07/april-referendum-enr | `C:\Scripts\Python\Python_ElectionResults\april-referendum-enr\` | 39d06a5 2026-05-12 |
-| referendum-2026 | This project home (docs + project SQL) | (pending — not yet created) | `C:\DPVA_Projects\Referendum2026\` | not initialized |
+| referendum-2026 | This project home (docs + project SQL) | https://github.com/brennertobe07/referendum-2026 (private) | `C:\DPVA_Projects\Referendum2026\` | initial commit 5b03a1d, pushed 2026-05-21 |
 
 ## 6. Live URLs
 | URL | What it shows | Auth | Hosted on | Repo source |
@@ -142,7 +142,7 @@ All cycle tasks are now **Disabled** (post-election wind-down). Exported full li
 - **Reproducibility:** `analysis\analyze.py` rebuilds `LTV2026_Ref_Base` and regenerates the Phase 5 body of `LTV2026_Ref_Analysis.md` + the `.xlsx`. The Phase 6 executive summary is hand-authored at the top of the `.md`; re-running `analyze.py` overwrites the file, so preserve the exec summary if regenerating.
 
 ## 10. Wrap-up Checklist
-- [ ] All scripts committed to git
+- [x] All scripts committed to git (repo `referendum-2026`, pushed 2026-05-21)
 - [ ] Final backup zip in C:\Scripts\Python\Backups\
 - [ ] Google Drive archive moved from Daily_List\ to Absentee_Archive\
 - [ ] SQL tables documented in section 3

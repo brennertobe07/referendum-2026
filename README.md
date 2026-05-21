@@ -11,9 +11,9 @@ Amendment **PASSED, 51.69% Yes / 48.31% No**, on **51.06% turnout** (3.1M voters
 ## Visual summary (one-page brief)
 ![One-page voter analysis brief](analysis/Referendum2026_Summary_preview.png)
 
-Interactive / print-ready version: [`analysis/Referendum2026_Summary.html`](analysis/Referendum2026_Summary.html)
-(download → open in a browser → Ctrl-P to save as PDF). Full written analysis:
-[`analysis/LTV2026_Ref_Analysis.md`](analysis/LTV2026_Ref_Analysis.md).
+Ready-to-share **PDF**: [`analysis/Referendum2026_Summary.pdf`](analysis/Referendum2026_Summary.pdf) ·
+interactive HTML source: [`analysis/Referendum2026_Summary.html`](analysis/Referendum2026_Summary.html) ·
+full written analysis: [`analysis/LTV2026_Ref_Analysis.md`](analysis/LTV2026_Ref_Analysis.md).
 
 ## Contents
 | Path | What |

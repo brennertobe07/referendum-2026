@@ -1,0 +1,15 @@
+# Logs and intermediate artifacts (regeneratable)
+notes/*log*.txt
+analysis/_headline.json
+
+# Backups / large binaries (kept locally, not in git)
+handoff/*.zip
+
+# OS / editor cruft
+Thumbs.db
+desktop.ini
+.DS_Store
+*~
+
+# Claude Code local settings (machine-specific)
+.claude/

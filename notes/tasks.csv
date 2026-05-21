@@ -1,0 +1,21 @@
+"TaskName","State","Execute","Arguments","WorkingDirectory"
+"AbsenteeFix_Temp","Disabled","C:\Scripts\BAT\AB_Fix2.bat",,
+"Append_BS_Party_Rollups","Disabled","C:\Scripts\BAT\8_Append_BS_PartyOut_Rollup.bat",,
+"Append_Cure_Rollup","Disabled","C:\Scripts\BAT\7_Append_CureRollup.bat",,
+"Append_Master_APP","Disabled","C:\Scripts\BAT\4_AppendMaster_APP.bat",,
+"Append_Master_Ongoing","Disabled","C:\Scripts\BAT\5_AppendMaster_Ongoing.bat",,
+"AppendMaster_AppPTY","Disabled","C:\Scripts\BAT\6_AppendMaster_AppsPTY.bat",,
+"appuriverifierdaily","Ready","%windir%\system32\AppHostRegistrationVerifier.exe",,
+"Create Votebuilder Export","Disabled","C:\Scripts\BAT\Zip_Move_VanUpload.bat",,
+"Download Absentee2","Disabled","C:\Scripts\Python\Python_Absentee\absentee_pipeline.py",,
+"ENR_DATA_PUSH_60SECONDS","Disabled","py","-3.12 ""C:\Scripts\Python\Python_ElectionResults\push_enr.py""","C:\Scripts\Python\Python_ElectionResults"
+"ENR_updateAbsentee","Disabled","py","-3.12 ""C:\Scripts\Python\Python_ElectionResults\push_enr.py""","C:\Scripts\Python\Python_ElectionResults"
+"HD98_Report","Disabled","C:\Scripts\Python\Python_Absentee\hd98\hd98_absentee_report_v5.py",,
+"LoadDaily_Copy","Disabled","C:\Scripts\BAT\2RunDailyCopy.bat",,
+"LoadDaily_Dropped","Disabled","C:\Scripts\BAT\3RunDropTable.bat",,
+"LoadDailyAbsenteeSQL","Disabled","C:\Scripts\BAT\1DailyAB_SQL.bat",,
+"Podcast_Battlefield","Ready","C:\InfoGather\podcast\refresh_gbf.bat",,"C:\InfoGather\podcast"
+"Run_Daily_Reports_MDBR","Disabled","""C:\Program Files (x86)\Microsoft Office\root\Office16\MSACCESS.EXE""","""C:\temp\Absentee2024pr.accdb"" /x ""Run Daily Van Upload 24""",
+"RunOngoing_export","Disabled","C:\Scripts\BAT\OnGoing2.bat",,
+"Update_Dashboards","Disabled","C:\Scripts\Python\Python_Absentee\export_dashboards.py",,
+"Upload_Absentee_Pheonix","Disabled","C:\Scripts\Python\Python_Absentee\upload_absentee.py",,

@@ -87,6 +87,9 @@ Phase 4 reconciliation against the SBE results file
 | `C:\DPVA_Projects\Referendum2026\analysis\LTV2026_Ref_Analysis.md` | MD | Phase 5/6 | keep | Exec summary + 5a–5h |
 | `C:\DPVA_Projects\Referendum2026\analysis\LTV2026_Ref_Analysis.xlsx` | XLSX | Phase 5 | keep | One sheet per analysis (5a–5h) |
 | `C:\DPVA_Projects\Referendum2026\analysis\analyze.py` | PY | Phase 5 | keep | Builds base table + writes report/xlsx |
+| `C:\DPVA_Projects\Referendum2026\analysis\Referendum2026_Summary.html` | HTML | Publication | keep | Self-contained one-page visual brief (inline SVG charts) |
+| `C:\DPVA_Projects\Referendum2026\analysis\Referendum2026_Summary_preview.png` | PNG | Publication | keep | Preview image embedded in README |
+| `C:\DPVA_Projects\Referendum2026\analysis\make_publication.py` | PY | Publication | keep | Builds the HTML brief from the xlsx + ENR summary |
 
 ## 5. GitHub Repositories
 | Repo | Purpose | URL | Local Path | Last Commit |

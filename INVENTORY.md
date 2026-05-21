@@ -79,7 +79,8 @@ Phase 4 reconciliation against the SBE results file
 | `G:\My Drive\Absentee26SP_Apr\Permanent_Absentees\` | CSV | pipeline | archive | Permanent absentee exports |
 | `G:\My Drive\Absentee26SP_Apr\03.25.2026 - April 21st Statewide Absentee.zip` | ZIP (353 MB) | SBE | archive | Statewide absentee snapshot |
 | `C:\Absentee\Cure_backup\Cure_History_YYYY-MM-DD.csv` | CSV | pipeline | archive | Daily cure backups |
-| `C:\Scripts\Python\Backups\DPVA_Pipeline_Backup_20260423_113001.zip` | ZIP (934 KB) | backup script | keep | Latest pipeline backup |
+| `C:\Scripts\Python\Backups\DPVA_Pipeline_Backup_20260521_141527.zip` | ZIP (935 KB) | backup script | keep | **Final cycle backup** (25 files; absentee+cure pipeline) |
+| `C:\Scripts\Python\Backups\DPVA_Pipeline_Backup_20260423_113001.zip` | ZIP (934 KB) | backup script | keep | Prior pipeline backup |
 | `C:\DPVA_Projects\Referendum2026\analysis\reconciliation.md` | MD | Phase 4 | keep | Created 2026-05-21 |
 | `C:\DPVA_Projects\Referendum2026\analysis\reconcile.py` | PY | Phase 4 | keep | Reconciliation script |
 | `C:\DPVA_Projects\Referendum2026\analysis\locality_reconciliation.csv` | CSV | Phase 4 | keep | Per-locality LTV vs ENR |
@@ -143,7 +144,7 @@ All cycle tasks are now **Disabled** (post-election wind-down). Exported full li
 
 ## 10. Wrap-up Checklist
 - [x] All scripts committed to git (repo `referendum-2026`, pushed 2026-05-21)
-- [ ] Final backup zip in C:\Scripts\Python\Backups\
+- [x] Final backup zip in C:\Scripts\Python\Backups\ (`DPVA_Pipeline_Backup_20260521_141527.zip`, 2026-05-21; absentee+cure pipeline. NOTE: ENR scripts not in this zip — versioned in `april-referendum-enr` repo)
 - [ ] Google Drive archive moved from Daily_List\ to Absentee_Archive\
 - [ ] SQL tables documented in section 3
 - [ ] Reference docs current

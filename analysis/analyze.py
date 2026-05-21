@@ -50,6 +50,12 @@ def age_expr(dob_col):
             f"THEN 1 ELSE 0 END")
 
 
+def base_exists(hist):
+    n = pd.read_sql(text(
+        "SELECT COUNT(*) n FROM sys.tables WHERE name='LTV2026_Ref_Base'"), hist)["n"][0]
+    return int(n) > 0
+
+
 def build_base(hist, voter):
     # full prior-vote history column set (any non-blank => has voted before 2026)
     hist_cols = pd.read_sql(text(
@@ -114,7 +120,13 @@ def main():
     hist = eng("Historic")
     voter = eng("Voter")
 
-    nbase = build_base(hist, voter)
+    # Reuse the existing base table unless REBUILD=1 is set (rebuild is the slow part).
+    import os
+    if base_exists(hist) and os.environ.get("REBUILD") != "1":
+        nbase = int(pd.read_sql(text("SELECT COUNT(*) n FROM Historic.dbo.LTV2026_Ref_Base"), hist)["n"][0])
+        print(f"Reusing existing LTV2026_Ref_Base ({nbase:,} rows). Set REBUILD=1 to rebuild.")
+    else:
+        nbase = build_base(hist, voter)
 
     sheets = {}   # name -> DataFrame for xlsx
     md = []
@@ -338,7 +350,11 @@ def main():
               f"data-quality mismatches, or voters since removed from the roll.\n")
 
     # ---------- write outputs ----------
-    (PROJ / "analysis" / "LTV2026_Ref_Analysis.md").write_text("\n".join(md), encoding="utf-8")
+    # Prepend the hand-authored Phase 6 executive summary if present.
+    exec_path = PROJ / "analysis" / "_exec_summary.md"
+    body = "\n".join(md)
+    full = (exec_path.read_text(encoding="utf-8") + "\n" + body) if exec_path.exists() else body
+    (PROJ / "analysis" / "LTV2026_Ref_Analysis.md").write_text(full, encoding="utf-8")
     with pd.ExcelWriter(PROJ / "analysis" / "LTV2026_Ref_Analysis.xlsx", engine="openpyxl") as xw:
         for name, df in sheets.items():
             df.to_excel(xw, sheet_name=name[:31], index=False)
@@ -356,21 +372,29 @@ def main():
     }), encoding="utf-8")
 
 
+def _fmt(v):
+    import math
+    if v is None:
+        return ""
+    if isinstance(v, str):
+        return v
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return str(v)
+    if math.isnan(f):
+        return ""
+    if f == int(f):           # whole number -> integer with thousands separators
+        return f"{int(f):,}"
+    return f"{f:,.1f}"          # otherwise one decimal
+
+
 def df_to_md(df):
     cols = list(df.columns)
     out = ["| " + " | ".join(str(c) for c in cols) + " |",
            "|" + "|".join(["---"] * len(cols)) + "|"]
     for _, r in df.iterrows():
-        vals = []
-        for c in cols:
-            v = r[c]
-            if isinstance(v, float):
-                vals.append(f"{v:,.1f}" if v == v else "")
-            elif isinstance(v, (int,)):
-                vals.append(f"{v:,}")
-            else:
-                vals.append("" if v is None or (isinstance(v, float) and v != v) else str(v))
-        out.append("| " + " | ".join(vals) + " |")
+        out.append("| " + " | ".join(_fmt(r[c]) for c in cols) + " |")
     return "\n".join(out)
 
 

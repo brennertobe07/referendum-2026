@@ -43,6 +43,7 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 
 ---
 
+
 # Referendum 2026 — Voter Pattern Analysis (Phase 5)
 
 _Generated 2026-05-21. Base table `Historic.dbo.LTV2026_Ref_Base` = 3,101,912 LTV voters enriched with Van party/history + RVL match._
@@ -88,16 +89,16 @@ Turnout % = LTV voters / RVL active registered, by age (as of 2026-04-21). Basel
 | 35-44 | 442,923 | 996,216 | 44.5 | 46.9 | -2.4 |
 | 45-54 | 490,763 | 906,307 | 54.1 | 57.3 | -3.2 |
 | 55-64 | 619,681 | 970,283 | 63.9 | 65.6 | -1.7 |
-| 65-74 | 608,678 | 845,492 | 72.0 | 72.8 | -0.8 |
-| 75+ | 441,737 | 648,585 | 68.1 | 70.0 | -1.9 |
-| Unknown | 4,202 | 18,898 | 22.2 | 0.0 | 22.2 |
+| 65-74 | 608,678 | 845,492 | 72 | 72.8 | -0.8 |
+| 75+ | 441,737 | 648,585 | 68.1 | 70 | -1.9 |
+| Unknown | 4,202 | 18,898 | 22.2 | 0 | 22.2 |
 
 ## 5c. Gender
 
 | gender | voted | registered | turnout_pct | baseline_2025G_pct | vs_baseline_pp |
 |---|---|---|---|---|---|
 | F | 1,663,406 | 3,150,405 | 52.8 | 55.4 | -2.6 |
-| M | 1,425,423 | 2,804,708 | 50.8 | 52.0 | -1.2 |
+| M | 1,425,423 | 2,804,708 | 50.8 | 52 | -1.2 |
 
 ## 5d. Vote history pattern (last 4 Nov generals: 2022-2025)
 
@@ -105,11 +106,11 @@ Among LTV voters matched in Van:
 
 | generals_voted_of_4 | voters | pct |
 |---|---|---|
-| 0.0 | 61,556.0 | 2.0 |
-| 1.0 | 224,079.0 | 7.3 |
-| 2.0 | 452,566.0 | 14.7 |
-| 3.0 | 594,794.0 | 19.3 |
-| 4.0 | 1,743,423.0 | 56.7 |
+| 0 | 61,556 | 2 |
+| 1 | 224,079 | 7.3 |
+| 2 | 452,566 | 14.7 |
+| 3 | 594,794 | 19.3 |
+| 4 | 1,743,423 | 56.7 |
 
 **3-of-4 or 4-of-4: 2,338,217 (76.0%)** vs **0-of-4 or 1-of-4: 285,635 (9.3%)**. This referendum is a **base mobilization** story.
 
@@ -119,22 +120,22 @@ By age band (voter counts):
 
 | age_band | AB_Inperson | AB_Mail | AB_Other | Polls |
 |---|---|---|---|---|
-| 18-24 | 37,816.0 | 14,250.0 | 268.0 | 124,285.0 |
-| 25-34 | 62,521.0 | 26,576.0 | 391.0 | 227,821.0 |
-| 35-44 | 90,078.0 | 37,895.0 | 637.0 | 314,313.0 |
-| 45-54 | 132,525.0 | 36,769.0 | 575.0 | 320,894.0 |
-| 55-64 | 242,954.0 | 49,345.0 | 638.0 | 326,744.0 |
-| 65-74 | 298,414.0 | 69,586.0 | 727.0 | 239,951.0 |
-| 75+ | 211,101.0 | 82,750.0 | 1,081.0 | 146,805.0 |
-| Unknown | 716.0 | 63.0 | 3.0 | 3,420.0 |
+| 18-24 | 37,816 | 14,250 | 268 | 124,285 |
+| 25-34 | 62,521 | 26,576 | 391 | 227,821 |
+| 35-44 | 90,078 | 37,895 | 637 | 314,313 |
+| 45-54 | 132,525 | 36,769 | 575 | 320,894 |
+| 55-64 | 242,954 | 49,345 | 638 | 326,744 |
+| 65-74 | 298,414 | 69,586 | 727 | 239,951 |
+| 75+ | 211,101 | 82,750 | 1,081 | 146,805 |
+| Unknown | 716 | 63 | 3 | 3,420 |
 
 By party bucket:
 
 | party_bucket | AB_Inperson | AB_Mail | AB_Other | Polls |
 |---|---|---|---|---|
-| Dem | 466,681.0 | 190,098.0 | 1,830.0 | 618,252.0 |
-| Rep | 363,524.0 | 57,110.0 | 1,112.0 | 483,228.0 |
-| Unknown/Ind | 245,920.0 | 70,026.0 | 1,378.0 | 602,753.0 |
+| Dem | 466,681 | 190,098 | 1,830 | 618,252 |
+| Rep | 363,524 | 57,110 | 1,112 | 483,228 |
+| Unknown/Ind | 245,920 | 70,026 | 1,378 | 602,753 |
 
 ## 5f. Geography
 
@@ -160,7 +161,7 @@ Top 10 localities by turnout % (LTV voters / RVL active; Covington/Sussex exclud
 | GOOCHLAND COUNTY | 16,079 | 23,964 | 67.1 |
 | POWHATAN COUNTY | 16,078 | 24,818 | 64.8 |
 | HANOVER COUNTY | 56,035 | 87,325 | 64.2 |
-| MATHEWS COUNTY | 4,708 | 7,356 | 64.0 |
+| MATHEWS COUNTY | 4,708 | 7,356 | 64 |
 | RAPPAHANNOCK COUNTY | 3,895 | 6,153 | 63.3 |
 | HIGHLAND COUNTY | 1,146 | 1,813 | 63.2 |
 | MIDDLESEX COUNTY | 5,448 | 8,618 | 63.2 |
@@ -173,8 +174,8 @@ Strongest YES localities — voter profile:
 | name | yes_pct | avg_age | pct_female | pct_firsttime |
 |---|---|---|---|---|
 | PETERSBURG CITY | 87.0 | 58.2 | 61.6 | 1.4 |
-| CHARLOTTESVILLE CITY | 85.4 | 48.4 | 56.0 | 2.6 |
-| RICHMOND CITY | 83.0 | 48.8 | 56.8 | 2.1 |
+| CHARLOTTESVILLE CITY | 85.4 | 48.4 | 56 | 2.6 |
+| RICHMOND CITY | 83 | 48.8 | 56.8 | 2.1 |
 | FALLS CHURCH CITY | 80.8 | 52.5 | 52.4 | 2.8 |
 | ARLINGTON COUNTY | 79.9 | 48.8 | 52.2 | 2.9 |
 | ALEXANDRIA CITY | 79.0 | 51.4 | 55.4 | 2.6 |
@@ -194,7 +195,7 @@ Strongest NO localities — voter profile:
 | BLAND COUNTY | 12.4 | 57.6 | 48.7 | 1.9 |
 | RUSSELL COUNTY | 13.0 | 56.3 | 50.6 | 1.9 |
 | WISE COUNTY | 14.6 | 57.1 | 50.4 | 1.8 |
-| CRAIG COUNTY | 15.5 | 57.0 | 49.2 | 1.2 |
+| CRAIG COUNTY | 15.5 | 57 | 49.2 | 1.2 |
 | CARROLL COUNTY | 15.7 | 58.3 | 51.3 | 2.6 |
 | SMYTH COUNTY | 15.9 | 57.1 | 51.2 | 2.5 |
 
@@ -217,7 +218,7 @@ Precinct turnout: statewide mean 52.1%, SD 9.2pp (precincts with >=100 active re
 | PRINCE WILLIAM COUNTY | 304 - QUANTICO | 158 | 1,162 | 13.6 | -4.2 |
 | RICHMOND CITY | 310 - THREE HUNDRED TEN | 125 | 859 | 14.6 | -4.1 |
 | HAMPTON CITY | 113 - HAMPTON UNIVERSITY | 505 | 2,311 | 21.9 | -3.3 |
-| RICHMOND CITY | 602 - SIX HUNDRED TWO | 480 | 2,180 | 22.0 | -3.3 |
+| RICHMOND CITY | 602 - SIX HUNDRED TWO | 480 | 2,180 | 22 | -3.3 |
 | NORFOLK CITY | 104 - TITUSTOWN  | 535 | 2,392 | 22.4 | -3.2 |
 | MONTGOMERY COUNTY | 603 - PRECINCT F-3 | 252 | 1,068 | 23.6 | -3.1 |
 | NEWPORT NEWS CITY | 305 - DOWNTOWN | 242 | 961 | 25.2 | -2.9 |

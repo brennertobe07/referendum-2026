@@ -109,8 +109,12 @@ def main():
     donut_items = [("Election day", m["Polls"]), ("In-person early", m["AB_Inperson"]), ("Mail", m["AB_Mail"])]
 
     pv = party.set_index("party_bucket")
-    pbars_lab = ["Dem", "Rep", "Unknown/Ind"]
+    pbars_lab = ["Dem", "Rep"]
     pbars_val = [round(float(pv.loc[b, "turnout_pct"]), 1) for b in pbars_lab]
+    dem_reg = float(pv.loc["Dem", "registered"]) / 1e6
+    rep_reg = float(pv.loc["Rep", "registered"]) / 1e6
+    dem_share = round(float(pv.loc["Dem", "share_of_voters_pct"]))
+    rep_share = round(float(pv.loc["Rep", "share_of_voters_pct"]))
 
     vh = vh.sort_values("generals_voted_of_4")
     vh_lab = [f"{int(x)}-of-4" for x in vh.generals_voted_of_4]
@@ -118,7 +122,7 @@ def main():
 
     chart_age = svg_grouped(cats, ref, base, "Referendum", "2025 General")
     chart_method = svg_donut(donut_items, [BLUE, LBLUE, "#cbd6e6"])
-    chart_party = svg_bars(pbars_lab, pbars_val, [DEM, REP, IND], ymax=85, suffix="%")
+    chart_party = svg_bars(pbars_lab, pbars_val, [DEM, REP], ymax=70, suffix="%")
     chart_vh = svg_bars(vh_lab, vh_val, [NO, "#d99", "#cbd5e0", LBLUE, BLUE], ymax=65, suffix="%")
 
     def loc_rows(df):
@@ -175,7 +179,7 @@ def main():
 <div class="grid">
   <div class="panel"><h3>Turnout by age vs 2025 General</h3><p class="cap">% of active registered voting, by age band</p>{chart_age}</div>
   <div class="panel"><h3>How people voted</h3><p class="cap">share of all {s['total']/1e6:.1f}M voters by method</p>{chart_method}</div>
-  <div class="panel"><h3>Turnout by party lean</h3><p class="cap">% turnout — Rep intensity high, Dem base larger (Van party ID)</p>{chart_party}</div>
+  <div class="panel"><h3>Turnout by party</h3><p class="cap">% turnout (Van party ID + Dem-support score, dashboard method)</p>{chart_party}</div>
   <div class="panel"><h3>Voter consistency</h3><p class="cap">% of voters by # of last 4 Nov generals voted</p>{chart_vh}</div>
 </div>
 
@@ -193,7 +197,7 @@ def main():
 <div class="findings"><b>Key findings</b>
 <ul>
   <li><b>A base-mobilization electorate, not a new one.</b> 76% of voters had voted in 3-or-4 of the last 4 November generals; first-time voters were just 2.1%.</li>
-  <li><b>Republicans turned out harder, Democrats' larger base carried it.</b> Rep-leaning turnout {pbars_val[1]:.0f}% vs Dem-leaning {pbars_val[0]:.0f}%, but Dem-leaning registrants outnumber Republicans ~2.1M to 1.2M. Geography was sharply partisan — strongest Yes in cities/NoVa, strongest No in southwest Virginia.</li>
+  <li><b>Republicans turned out harder, Democrats' larger base carried it.</b> Rep turnout {pbars_val[1]:.0f}% vs Dem {pbars_val[0]:.0f}%, but Dem-leaning registrants outnumber Republicans ~{dem_reg:.1f}M to {rep_reg:.1f}M and were the majority of voters ({dem_share}% vs {rep_share}%). Geography was sharply partisan — strongest Yes in cities/NoVa, strongest No in southwest Virginia.</li>
   <li><b>Turnout climbed steeply with age</b> ({ref[0]:.0f}% at 18–24 to {max(ref):.0f}% at 65–74); women turned out {f_to-m_to:.1f} pp higher than men ({f_to:.1f}% vs {m_to:.1f}%).</li>
   <li><b>Method skewed old-early, young-day:</b> {m['Polls']/sum(m.values())*100:.0f}% election day, {m['AB_Inperson']/sum(m.values())*100:.0f}% in-person early, {m['AB_Mail']/sum(m.values())*100:.0f}% mail.</li>
 </ul></div>

@@ -20,12 +20,13 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
    the last 4 November generals; only 9.3% had voted in 0 or 1. First-time voters were
    just **2.1%**. The referendum turned out the habitual electorate — it did not pull in
    new or marginal voters.
-2. **Republicans voted at much higher intensity, but Democrats' larger base won it.**
-   Rep-leaning turnout was **72.9%** vs Dem-leaning **59.8%** (a 13 pp gap), yet the
-   measure passed because Dem-leaning registrants outnumber Rep-leaning ~2.14M to 1.24M
-   and independents broke in. Geography was sharply partisan: strongest Yes in urban /
-   NoVa localities (Petersburg 87%, Charlottesville 85%, Richmond 83%, Arlington 80%),
-   strongest No in southwest Virginia (Lee 11%, Scott 12%, Buchanan 12%).
+2. **Republicans voted at higher intensity, but Democrats' larger base won it.**
+   Using the absentee-dashboard party rule (party ID, then Dem-support score split at 50),
+   Rep turnout was **53.0%** vs Dem **45.1%** (an ~8 pp gap), yet the measure passed because
+   Dem-leaning registrants outnumber Republicans ~3.6M to 2.7M and were the **majority of
+   voters (52.7% vs 45.4%)** — consistent with Yes winning. Geography was sharply partisan:
+   strongest Yes in urban / NoVa localities (Petersburg 87%, Charlottesville 85%, Richmond
+   83%, Arlington 80%), strongest No in southwest Virginia (Lee 11%, Scott 12%, Buchanan 12%).
 3. **Turnout climbs steeply with age.** 28.7% (18–24) → 72.0% (65–74), with women
    turning out 2 pp higher than men (52.8% vs 50.8%).
 4. **Vote method skews old-early, young-day.** Statewide 54.9% voted election day,

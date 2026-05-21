@@ -20,12 +20,13 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
    the last 4 November generals; only 9.3% had voted in 0 or 1. First-time voters were
    just **2.1%**. The referendum turned out the habitual electorate — it did not pull in
    new or marginal voters.
-2. **Republicans voted at much higher intensity, but Democrats' larger base won it.**
-   Rep-leaning turnout was **72.9%** vs Dem-leaning **59.8%** (a 13 pp gap), yet the
-   measure passed because Dem-leaning registrants outnumber Rep-leaning ~2.14M to 1.24M
-   and independents broke in. Geography was sharply partisan: strongest Yes in urban /
-   NoVa localities (Petersburg 87%, Charlottesville 85%, Richmond 83%, Arlington 80%),
-   strongest No in southwest Virginia (Lee 11%, Scott 12%, Buchanan 12%).
+2. **Republicans voted at higher intensity, but Democrats' larger base won it.**
+   Using the absentee-dashboard party rule (party ID, then Dem-support score split at 50),
+   Rep turnout was **53.0%** vs Dem **45.1%** (an ~8 pp gap), yet the measure passed because
+   Dem-leaning registrants outnumber Republicans ~3.6M to 2.7M and were the **majority of
+   voters (52.7% vs 45.4%)** — consistent with Yes winning. Geography was sharply partisan:
+   strongest Yes in urban / NoVa localities (Petersburg 87%, Charlottesville 85%, Richmond
+   83%, Arlington 80%), strongest No in southwest Virginia (Lee 11%, Scott 12%, Buchanan 12%).
 3. **Turnout climbs steeply with age.** 28.7% (18–24) → 72.0% (65–74), with women
    turning out 2 pp higher than men (52.8% vs 50.8%).
 4. **Vote method skews old-early, young-day.** Statewide 54.9% voted election day,
@@ -48,7 +49,7 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 
 _Generated 2026-05-21. Base table `Historic.dbo.LTV2026_Ref_Base` = 3,101,912 LTV voters enriched with Van party/history + RVL match._
 
-> **Caveats:** turnout denominators use RVL `STATUS='Active'`; party uses Van `LikelyParty` (SD/LD=Dem, SR/LR=Rep, ND/I/U=Unknown/Ind); baseline = 2025 General (Van `General25`). COVINGTON CITY (580) and SUSSEX COUNTY (183) are under-reported in the LTV source (~1/3 of actual) — locality-level rows for them are unreliable; statewide/demographic results are unaffected (<0.1%).
+> **Caveats:** turnout denominators use RVL `STATUS='Active'`; party uses the absentee-dashboard rule (SD/LD=Dem, SR/LR=Rep, then ND/U/I split by `Clarity_DemSupport_26` at 50; only no-score/no-VAN = Unknown); baseline = 2025 General (Van `General25`). COVINGTON CITY (580) and SUSSEX COUNTY (183) are under-reported in the LTV source (~1/3 of actual) — locality-level rows for them are unreliable; statewide/demographic results are unaffected (<0.1%).
 
 ## 5a. First-time voters
 
@@ -72,9 +73,9 @@ First-time voters by party bucket:
 
 | party_bucket | first_time |
 |---|---|
-| Unknown/Ind | 63,973 |
-| Dem | 789 |
-| Rep | 132 |
+| Unknown | 26,740 |
+| Dem | 22,082 |
+| Rep | 16,072 |
 
 _Comparison: 108,974 of 5,984,412 active registered voters (1.8%) registered after the Nov 2025 general — the referendum's first-time share (2.1%) exceeds that baseline._
 
@@ -133,9 +134,9 @@ By party bucket:
 
 | party_bucket | AB_Inperson | AB_Mail | AB_Other | Polls |
 |---|---|---|---|---|
-| Dem | 466,681 | 190,098 | 1,830 | 618,252 |
-| Rep | 363,524 | 57,110 | 1,112 | 483,228 |
-| Unknown/Ind | 245,920 | 70,026 | 1,378 | 602,753 |
+| Dem | 557,525 | 229,022 | 2,404 | 844,661 |
+| Rep | 505,008 | 85,194 | 1,847 | 817,171 |
+| Unknown | 13,592 | 3,018 | 69 | 42,401 |
 
 ## 5f. Geography
 
@@ -199,15 +200,17 @@ Strongest NO localities — voter profile:
 | CARROLL COUNTY | 15.7 | 58.3 | 51.3 | 2.6 |
 | SMYTH COUNTY | 15.9 | 57.1 | 51.2 | 2.5 |
 
-## 5g. Party (from Van LikelyParty; denominator = Van registered)
+## 5g. Party (dashboard methodology; denominator = Van registered)
+
+Party assigned the same way as the absentee/cure dashboards: hard party ID (SD/LD=Dem, SR/LR=Rep), then ND/U/I split by `Clarity_DemSupport_26` at 50; only no-score / no-VAN-match is Unknown. Turnout % = LTV voters / Van registered.
 
 | party_bucket | voted | registered | turnout_pct | share_of_voters_pct |
 |---|---|---|---|---|
-| Rep | 904,974 | 1,240,690 | 72.9 | 29.2 |
-| Dem | 1,276,861 | 2,135,992 | 59.8 | 41.2 |
-| Unknown/Ind | 920,077 | 3,009,694 | 30.6 | 29.7 |
+| Dem | 1,633,612 | 3,622,724 | 45.1 | 52.7 |
+| Rep | 1,409,220 | 2,659,242 | 53 | 45.4 |
+| Unknown | 59,080 | 104,410 | 56.6 | 1.9 |
 
-Dem turnout 59.8% vs Rep turnout 72.9% — skew of 13.1 pp toward Rep.
+Rep turnout 53.0% vs Dem turnout 45.1% — skew of 7.9 pp toward Rep. But Democrats were the larger share of the electorate (52.7% of voters vs 45.4% Republican), consistent with the Yes side winning.
 
 ## 5h. Anomaly scan
 

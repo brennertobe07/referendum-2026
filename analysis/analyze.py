@@ -36,6 +36,20 @@ AGE_BAND_SQL = """CASE
 
 BAND_ORDER = ['18-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75+', 'Unknown']
 
+# Party bucket — matches the absentee/cure dashboard methodology:
+# hard party ID first (SD/LD=Dem, SR/LR=Rep), then split ND/U/I by the
+# Dem-support score at 50; only no-score / no-VAN-match falls to Unknown.
+def party_case(dem_support_expr, likely="LikelyParty"):
+    return (f"CASE WHEN {likely} IN ('SD','LD') THEN 'Dem' "
+            f"WHEN {likely} IN ('SR','LR') THEN 'Rep' "
+            f"WHEN {dem_support_expr} >= 50 THEN 'Dem' "
+            f"WHEN {dem_support_expr} < 50 THEN 'Rep' "
+            f"ELSE 'Unknown' END")
+
+PARTY_BASE = party_case("dem_support")                                  # base table (dem_support already float)
+PARTY_VAN = party_case("TRY_CONVERT(float, Clarity_DemSupport_26)")     # Van view (varchar score)
+PARTY_ORDER = ['Dem', 'Rep', 'Unknown']
+
 
 def eng(db):
     return create_engine(
@@ -90,7 +104,9 @@ def build_base(hist, voter):
         v.LikelyParty,
         CASE WHEN v.LikelyParty IN ('SD','LD') THEN 'Dem'
              WHEN v.LikelyParty IN ('SR','LR') THEN 'Rep'
-             ELSE 'Unknown/Ind' END AS party_bucket,
+             WHEN TRY_CONVERT(float, v.Clarity_DemSupport_26) >= 50 THEN 'Dem'
+             WHEN TRY_CONVERT(float, v.Clarity_DemSupport_26) < 50 THEN 'Rep'
+             ELSE 'Unknown' END AS party_bucket,
         TRY_CONVERT(float, v.Clarity_DemSupport_26) AS dem_support,
         v.RaceName,
         ({gen4}) AS gen4,
@@ -133,8 +149,9 @@ def main():
     md.append("# Referendum 2026 — Voter Pattern Analysis (Phase 5)\n")
     md.append(f"_Generated 2026-05-21. Base table `Historic.dbo.LTV2026_Ref_Base` "
               f"= {nbase:,} LTV voters enriched with Van party/history + RVL match._\n")
-    md.append("> **Caveats:** turnout denominators use RVL `STATUS='Active'`; party uses "
-              "Van `LikelyParty` (SD/LD=Dem, SR/LR=Rep, ND/I/U=Unknown/Ind); baseline = 2025 "
+    md.append("> **Caveats:** turnout denominators use RVL `STATUS='Active'`; party uses the "
+              "absentee-dashboard rule (SD/LD=Dem, SR/LR=Rep, then ND/U/I split by "
+              "`Clarity_DemSupport_26` at 50; only no-score/no-VAN = Unknown); baseline = 2025 "
               "General (Van `General25`). COVINGTON CITY (580) and SUSSEX COUNTY (183) are "
               "under-reported in the LTV source (~1/3 of actual) — locality-level rows for "
               "them are unreliable; statewide/demographic results are unaffected (<0.1%).\n")
@@ -173,9 +190,9 @@ def main():
     ftb_age = ftb_age.sort_values("age_band")
     sheets["5a_firsttime_by_age"] = ftb_age
     ftb_party = q(hist, f"""
-        SELECT party_bucket, COUNT(*) AS first_time
+        SELECT {PARTY_BASE} AS party_bucket, COUNT(*) AS first_time
         FROM {AB} WHERE (in_van=1 AND prior_vote=0) OR in_van=0
-        GROUP BY party_bucket ORDER BY first_time DESC""")
+        GROUP BY {PARTY_BASE} ORDER BY first_time DESC""")
     sheets["5a_firsttime_by_party"] = ftb_party
     md.append("First-time voters by age band:\n")
     md.append(df_to_md(ftb_age))
@@ -245,7 +262,7 @@ def main():
     vm_age_p["age_band"] = pd.Categorical(vm_age_p["age_band"], BAND_ORDER, ordered=True)
     vm_age_p = vm_age_p.sort_values("age_band")
     sheets["5e_method_by_age"] = vm_age_p
-    vm_party = q(hist, f"SELECT party_bucket, AB_Type, COUNT(*) AS voters FROM {AB} GROUP BY party_bucket, AB_Type")
+    vm_party = q(hist, f"SELECT {PARTY_BASE} AS party_bucket, AB_Type, COUNT(*) AS voters FROM {AB} GROUP BY {PARTY_BASE}, AB_Type")
     vm_party_p = vm_party.pivot_table(index="party_bucket", columns="AB_Type", values="voters", fill_value=0).reset_index()
     sheets["5e_method_by_party"] = vm_party_p
     md.append("## 5e. Vote method (Election day=Polls, In-person early=AB_Inperson, Mail=AB_Mail)\n")
@@ -302,24 +319,30 @@ def main():
     md.append("")
 
     # ---------- 5g Party ----------
-    pv = q(hist, f"SELECT party_bucket, COUNT(*) AS voted FROM {AB} GROUP BY party_bucket")
-    pr = q(voter, """SELECT CASE WHEN LikelyParty IN ('SD','LD') THEN 'Dem'
-                              WHEN LikelyParty IN ('SR','LR') THEN 'Rep' ELSE 'Unknown/Ind' END AS party_bucket,
-                       COUNT(*) AS registered FROM Voter.dbo.Van GROUP BY
-                       CASE WHEN LikelyParty IN ('SD','LD') THEN 'Dem'
-                            WHEN LikelyParty IN ('SR','LR') THEN 'Rep' ELSE 'Unknown/Ind' END""")
+    pv = q(hist, f"SELECT {PARTY_BASE} AS party_bucket, COUNT(*) AS voted FROM {AB} GROUP BY {PARTY_BASE}")
+    pr = q(voter, f"SELECT {PARTY_VAN} AS party_bucket, COUNT(*) AS registered "
+                  f"FROM Voter.dbo.Van GROUP BY {PARTY_VAN}")
     party = pv.merge(pr, on="party_bucket", how="left")
+    party["party_bucket"] = pd.Categorical(party["party_bucket"], PARTY_ORDER, ordered=True)
+    party = party.sort_values("party_bucket")
     party["turnout_pct"] = (party["voted"] / party["registered"] * 100).round(1)
     party["share_of_voters_pct"] = (party["voted"] / party["voted"].sum() * 100).round(1)
     sheets["5g_party"] = party
-    md.append("## 5g. Party (from Van LikelyParty; denominator = Van registered)\n")
+    md.append("## 5g. Party (dashboard methodology; denominator = Van registered)\n")
+    md.append("Party assigned the same way as the absentee/cure dashboards: hard party ID "
+              "(SD/LD=Dem, SR/LR=Rep), then ND/U/I split by `Clarity_DemSupport_26` at 50; "
+              "only no-score / no-VAN-match is Unknown. Turnout % = LTV voters / Van registered.\n")
     md.append(df_to_md(party))
     dem_to = party.loc[party.party_bucket == "Dem", "turnout_pct"].values
     rep_to = party.loc[party.party_bucket == "Rep", "turnout_pct"].values
+    dem_sh = party.loc[party.party_bucket == "Dem", "share_of_voters_pct"].values
+    rep_sh = party.loc[party.party_bucket == "Rep", "share_of_voters_pct"].values
     if len(dem_to) and len(rep_to):
-        md.append(f"\nDem turnout {dem_to[0]}% vs Rep turnout {rep_to[0]}% — "
-                  f"skew of {abs(dem_to[0]-rep_to[0]):.1f} pp toward "
-                  f"{'Dem' if dem_to[0] > rep_to[0] else 'Rep'}.\n")
+        md.append(f"\nRep turnout {rep_to[0]}% vs Dem turnout {dem_to[0]}% — skew of "
+                  f"{abs(dem_to[0]-rep_to[0]):.1f} pp toward {'Rep' if rep_to[0] > dem_to[0] else 'Dem'}. "
+                  f"But Democrats were the larger share of the electorate ({dem_sh[0]}% of voters "
+                  f"vs {rep_sh[0]}% Republican), consistent with the {'Yes' if dem_sh[0] > rep_sh[0] else 'No'} "
+                  f"side winning.\n")
 
     # ---------- 5h Anomaly scan ----------
     # precinct turnout vs statewide mean +/- 2 SD

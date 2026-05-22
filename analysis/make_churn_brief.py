@@ -30,7 +30,7 @@ def shorten(name):
 
 def main():
     dpar = pd.read_excel(XLSX, "5i_dropoff_party")
-    dcc = pd.read_excel(XLSX, "5i_dropoff_county_count")
+    dcp = pd.read_excel(XLSX, "5i_dropoff_county_party")
     spar = pd.read_excel(XLSX, "5j_surge_party")
     dap = pd.read_excel(XLSX, "5i_dropoff_age_party")
     sap = pd.read_excel(XLSX, "5j_surge_age_party")
@@ -52,9 +52,14 @@ def main():
     sd, sr = grp(sap)
     c_dgrp = svg_grouped(BAND, dd, dr, "Dem", "Rep", w=470, h=215, ymax=50, c1=DEM, c2=REP, gstep=10)
     c_sgrp = svg_grouped(BAND, sd, sr, "Dem", "Rep", w=470, h=215, ymax=30, c1=DEM, c2=REP, gstep=10)
-    top = dcc.head(8)
-    c_dloc = svg_bars([shorten(n) for n in top.locality], [round(int(x) / 1000) for x in top.dropped_off],
-                      RED, w=920, h=180, ymax=max(top.dropped_off) / 1000 * 1.25, suffix="k")
+    top = dcp.sort_values("total", ascending=False).head(8)
+    locd = [round(float(x) / 1000) for x in top.Dem]
+    locr = [round(float(x) / 1000) for x in top.Rep]
+    c_dloc = svg_grouped([shorten(n) for n in top.locality], locd, locr, "Dem", "Rep",
+                         w=920, h=205, ymax=max(max(locd), max(locr)) * 1.28, c1=DEM, c2=REP, gstep=20)
+    f_loc = shorten(top.locality.iloc[0])
+    f_dem = round(float(top.Dem.iloc[0]) / 1000)
+    f_rep = round(float(top.Rep.iloc[0]) / 1000)
 
     dem_d = round(float(dp.loc["Dem", "dropoff_pct"]))
     rep_d = round(float(dp.loc["Rep", "dropoff_pct"]))
@@ -105,13 +110,13 @@ def main():
   <div class="panel"><h3 style="color:{RED}">Drop-off rate by age &amp; party</h3><p class="cap">% of each band's 2025G voters who skipped the referendum — Dem vs Rep</p>{c_dgrp}</div>
   <div class="panel"><h3 style="color:{GRN}">Surge rate by age &amp; party</h3><p class="cap">% of each band's referendum voters who skipped 2025G — Dem vs Rep</p>{c_sgrp}</div>
 </div>
-<div class="panel" style="margin-top:10px"><h3 style="color:{RED}">Where the lost voters are — top localities by drop-off count</h3><p class="cap">thousands of 2025G voters who didn't return</p>{c_dloc}</div>
+<div class="panel" style="margin-top:10px"><h3 style="color:{RED}">Where the lost voters are — top localities by drop-off count &amp; party</h3><p class="cap">thousands of 2025G voters who didn't return — Dem vs Rep</p>{c_dloc}</div>
 
 <div class="findings"><b>What it means</b>
 <ul>
   <li><b>Drop-off skews young and Democratic — at every age.</b> Democrats dropped off more than Republicans in every band (overall {dem_d}% vs {rep_d}%), widest among the young: {yd_dem:.0f}% of Dem 18–24s vs {yd_rep:.0f}% of Rep. The Yes win came <i>despite</i> losing more of the Dem base — cushioned by its size.</li>
   <li><b>Surge skews young but slightly Republican.</b> New-to-2025G referendum voters were {rep_s}% of Rep voters vs {dem_s}% of Dems — Democrats lost more of their base <i>and</i> replaced less of it.</li>
-  <li><b>Re-mobilization target:</b> young, Dem-leaning 2025 voters — highest volume in Fairfax / Loudoun / Prince William, highest rate in college towns (Harrisonburg, Charlottesville, Williamsburg). Voter-level list available (held privately, VAN-ready).</li>
+  <li><b>Re-mobilization target:</b> young, Dem-leaning 2025 voters — highest volume in Fairfax / Loudoun / Prince William and overwhelmingly Democratic there ({f_loc}: ~{f_dem}k Dem vs ~{f_rep}k Rep), highest rate in college towns (Harrisonburg, Charlottesville, Williamsburg). Voter-level list available (held privately, VAN-ready).</li>
 </ul></div>
 
 <div class="foot"><b>Eligibility note:</b> the youngest surge band is modestly inflated by ~5,400 voters who turned 18 after the 2025 General (eligible for the referendum, not 2025G) — only 1.6% of all surge. Excluding them, the 18–24 surge rate is <b>22.8%</b> rather than 24.9%, so the young tilt is overwhelmingly genuine. &nbsp;Source: 2025-General vote history and 2026 referendum participation matched in the VAN voter file (Van party ID + Dem-support score). "Drop-off" and "surge" are limited to voters present in VAN; ~25k referendum voters with no VAN record (new registrations) are additional surge. Aggregate counts only — no individual voter data. Detail: <code>analysis/LTV2026_Ref_Analysis.md</code> §5i–5j.</div>

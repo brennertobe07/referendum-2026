@@ -342,6 +342,23 @@ Top 12 localities by drop-off **rate** (min 5,000 2025G voters):
 | Loudoun | 169,052 | 39,141 | 23.2 |
 | Wise | 11,092 | 2,545 | 22.9 |
 
+Top 12 localities by drop-off **count, split by party**:
+
+| locality | Dem | Rep | total |
+|---|---|---|---|
+| Fairfax | 80,994 | 18,911 | 99,905 |
+| Loudoun | 25,684 | 12,959 | 38,643 |
+| Prince William | 26,782 | 10,591 | 37,373 |
+| Virginia Beach (City) | 19,919 | 15,660 | 35,579 |
+| Chesterfield | 20,565 | 12,467 | 33,032 |
+| Henrico | 22,273 | 7,984 | 30,257 |
+| Arlington | 20,290 | 2,580 | 22,870 |
+| Richmond (City) | 19,326 | 2,009 | 21,335 |
+| Chesapeake (City) | 10,973 | 8,549 | 19,522 |
+| Alexandria (City) | 12,980 | 1,740 | 14,720 |
+| Norfolk (City) | 11,977 | 2,329 | 14,306 |
+| Stafford | 7,353 | 5,739 | 13,092 |
+
 By age × party — drop-off rate within each age band:
 
 | age_band | Dem_dropoff_pct | Rep_dropoff_pct | Dem_minus_Rep_pp |

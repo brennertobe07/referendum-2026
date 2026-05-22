@@ -492,6 +492,21 @@ def main():
     md.append("\nTop 12 localities by drop-off **rate** (min 5,000 2025G voters):\n")
     md.append(df_to_md(dcr[["locality", "g25_voters", "dropped_off", "dropoff_pct"]]))
 
+    # locality x party drop-off counts (for the brief's grouped chart)
+    dcp = q(hist, f"SELECT CountyName AS locality, party_bucket, SUM(1-voted_ref) AS dropped FROM {DO} WHERE party_bucket IN ('Dem','Rep') GROUP BY CountyName, party_bucket")
+    dcp = dcp.pivot(index="locality", columns="party_bucket", values="dropped").fillna(0).reset_index()
+    dcp.columns.name = None
+    for cpb in ("Dem", "Rep"):
+        if cpb not in dcp.columns:
+            dcp[cpb] = 0
+    dcp["total"] = (dcp["Dem"] + dcp["Rep"]).astype(int)
+    dcp["Dem"] = dcp["Dem"].astype(int)
+    dcp["Rep"] = dcp["Rep"].astype(int)
+    dcp = dcp.sort_values("total", ascending=False)
+    sheets["5i_dropoff_county_party"] = dcp[["locality", "Dem", "Rep", "total"]]
+    md.append("\nTop 12 localities by drop-off **count, split by party**:\n")
+    md.append(df_to_md(dcp.head(12)[["locality", "Dem", "Rep", "total"]]))
+
     BANDS7 = [b for b in BAND_ORDER if b != "Unknown"]
     dap = q(hist, f"SELECT age_band, party_bucket, COUNT(*) g25, SUM(1-voted_ref) dropped FROM {DO} WHERE party_bucket IN ('Dem','Rep') GROUP BY age_band, party_bucket")
     dap["rate"] = (dap.dropped / dap.g25 * 100).round(1)

@@ -99,7 +99,7 @@ def svg_grouped(cats, s1, s2, l1, l2, w=440, h=250, ymax=80, c1=BLUE, c2=LBLUE, 
         bars.append(f'<rect x="{x0+bw:.1f}" y="{y(s2[i]):.1f}" width="{bw:.1f}" height="{y(0)-y(s2[i]):.1f}" fill="{c2}"/>')
         bars.append(f'<text x="{x0+bw*1.5:.1f}" y="{y(s2[i])-2.5:.1f}" font-size="6.8" font-weight="700" text-anchor="middle" fill="{INK}">{s2[i]:g}</text>')
         labels.append(f'<text x="{pad_l+i*cw+cw/2:.1f}" y="{h-pad_b+14}" font-size="9" text-anchor="middle" fill="{INK}">{esc(c)}</text>')
-    grid = "".join(f'<line x1="{pad_l}" y1="{y(g):.1f}" x2="{w}" y2="{y(g):.1f}" stroke="{GRID}"/><text x="{pad_l-4}" y="{y(g)+3:.1f}" font-size="8" text-anchor="end" fill="#7b8794">{g}</text>' for g in range(0, ymax + 1, gstep))
+    grid = "".join(f'<line x1="{pad_l}" y1="{y(g):.1f}" x2="{w}" y2="{y(g):.1f}" stroke="{GRID}"/><text x="{pad_l-4}" y="{y(g)+3:.1f}" font-size="8" text-anchor="end" fill="#7b8794">{g}</text>' for g in range(0, int(ymax) + 1, gstep))
     leg = f'<rect x="{pad_l}" y="2" width="10" height="10" fill="{c1}"/><text x="{pad_l+14}" y="11" font-size="9" fill="{INK}">{l1}</text><rect x="{pad_l+90}" y="2" width="10" height="10" fill="{c2}"/><text x="{pad_l+104}" y="11" font-size="9" fill="{INK}">{l2}</text>'
     return f'<svg viewBox="0 0 {w} {h}" width="100%" role="img">{grid}{"".join(bars)}{"".join(labels)}{leg}</svg>'
 

@@ -9,7 +9,7 @@ because Task Scheduler depends on those paths.
 Amendment **PASSED, 51.69% Yes / 48.31% No**, on **51.06% turnout** (3.1M voters).
 
 ## Visual summary (one-page brief)
-**Live page:** https://brennertobe07.github.io/referendum-2026/
+**Live page:** https://referendum-2026.vadems.org/
 
 ![One-page voter analysis brief](analysis/Referendum2026_Summary_preview.png)
 

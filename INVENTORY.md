@@ -111,7 +111,7 @@ Phase 4 reconciliation against the SBE results file
 | https://absentee.vadems.org | Absentee dashboard (summary, daily trends, historical comparison) | Cloudflare Zero Trust | GitHub Pages | april-referendum-absentee |
 | https://cure.vadems.org | Cure / ballot-rejection dashboard + needs-cure list | Cloudflare Zero Trust | GitHub Pages | va-cure |
 | https://enr.vadems.org | Election-night results dashboard | Public (no Zero Trust) | GitHub Pages | april-referendum-enr |
-| https://brennertobe07.github.io/referendum-2026/ | One-page voter-analysis brief (post-election) | Public | GitHub Pages | referendum-2026 |
+| https://referendum-2026.vadems.org/ | Post-election analysis site (summary + churn briefs) | Public | GitHub Pages (custom domain; also brennertobe07.github.io/referendum-2026/) | referendum-2026 |
 
 ## 7. Scheduled Tasks
 All cycle tasks are now **Disabled** (post-election wind-down). Exported full list to `notes\tasks.csv` (via Get-ScheduledTask).

@@ -32,12 +32,15 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 4. **Vote method skews old-early, young-day.** Statewide 54.9% voted election day,
    34.7% in-person early, 10.2% mail. The 65+ bands voted early/mail at far higher
    rates; under-35s concentrated on election day.
-5. **Re-mobilization target (drop-off).** 20.1% of 2025-General voters (690,881) did
-   not return for the referendum. Drop-off skewed **young** (42% of 18–24) and
-   **Democratic** (22.3% Dem vs 17.1% Rep), so the win came despite higher attrition
-   from the Dem 2025 base. Highest volume in NoVa/urban (Fairfax 101k); highest rate in
-   college towns (Harrisonburg 28%, Charlottesville/Williamsburg ~24%). Priority
-   re-engagement universe: young, Dem-leaning 2025 voters. See §5i.
+5. **Voter churn vs 2025 (re-mobilization target).** 20.1% of 2025-General voters
+   (690,881) didn't return; meanwhile 332,415 referendum voters (10.8%) hadn't voted
+   the 2025 General — a **net change of ≈ −358k** vs the 2025 electorate. Drop-off
+   skewed **young** (42% of 18–24) and **Democratic** (22.3% vs 17.1% Rep), while the
+   surge skewed young but **slightly Republican** (11.8% vs 9.8%): Democrats lost more
+   of their 2025 base *and* replaced less of it, winning on base size. Highest drop-off
+   volume in NoVa/urban (Fairfax 101k); highest rate in college towns (Harrisonburg 28%,
+   Charlottesville/Williamsburg ~24%). Priority re-engagement universe: young, Dem-leaning
+   2025 voters. See §5i–5j (and the companion churn brief).
 
 **Data-quality issues to follow up:**
 - **COVINGTON CITY (580)** and **SUSSEX COUNTY (183)** are under-reported in the SBE LTV

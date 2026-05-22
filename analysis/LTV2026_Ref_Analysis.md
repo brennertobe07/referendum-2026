@@ -340,3 +340,70 @@ Top 12 localities by drop-off **rate** (min 5,000 2025G voters):
 | Wise | 11,092 | 2,545 | 22.9 |
 
 **Takeaway:** drop-off skews young (42.0% of 18–24) and Democratic (22.3% Dem vs 17.1% Rep) — the re-mobilization universe is young, Dem-leaning 2025 voters, concentrated in NoVa/urban localities (by count) and college towns (by rate).
+
+## 5j. Surge — referendum voters who skipped the 2025 General
+
+Of **3,076,418** referendum voters present in VAN, **332,415 (10.8%)** did **not** vote in the 2025 General — the newer / irregular voters this referendum activated (vs 2,744,003 who voted both). Surge rate below = skipped-2025G ÷ referendum voters in the group. (Referendum voters with no VAN record at all — ~25k new registrations — are additional surge not counted here.)
+
+By party (dashboard methodology):
+
+| party_bucket | ref_voters | surge | surge_pct |
+|---|---|---|---|
+| Dem | 1,633,612 | 159,461 | 9.8 |
+| Rep | 1,409,220 | 165,921 | 11.8 |
+| Unknown | 33,586 | 7,033 | 20.9 |
+
+By age band:
+
+| age_band | ref_voters | surge | surge_pct |
+|---|---|---|---|
+| 18-24 | 166,643 | 41,431 | 24.9 |
+| 25-34 | 315,837 | 55,305 | 17.5 |
+| 35-44 | 441,836 | 59,118 | 13.4 |
+| 45-54 | 490,247 | 53,832 | 11 |
+| 55-64 | 618,722 | 54,902 | 8.9 |
+| 65-74 | 605,380 | 39,697 | 6.6 |
+| 75+ | 435,593 | 25,972 | 6 |
+| Unknown | 2,160 | 2,158 | 99.9 |
+
+By gender:
+
+| gender | ref_voters | surge | surge_pct |
+|---|---|---|---|
+| M | 1,417,506 | 156,623 | 11 |
+| F | 1,654,723 | 175,213 | 10.6 |
+
+By Congressional District:
+
+| CD | ref_voters | surge | surge_pct |
+|---|---|---|---|
+| 001 | 357,830 | 31,212 | 8.7 |
+| 002 | 280,742 | 30,319 | 10.8 |
+| 003 | 212,185 | 24,970 | 11.8 |
+| 004 | 265,510 | 25,526 | 9.6 |
+| 005 | 320,603 | 34,925 | 10.9 |
+| 006 | 292,170 | 36,486 | 12.5 |
+| 007 | 269,849 | 31,225 | 11.6 |
+| 008 | 252,038 | 21,445 | 8.5 |
+| 009 | 278,028 | 39,063 | 14.1 |
+| 010 | 274,224 | 30,476 | 11.1 |
+| 011 | 273,239 | 26,768 | 9.8 |
+
+Top 12 localities by surge **count**:
+
+| locality | ref_voters | surge | surge_pct |
+|---|---|---|---|
+| Fairfax | 383,154 | 36,882 | 9.6 |
+| Prince William | 145,697 | 17,252 | 11.8 |
+| Loudoun | 146,585 | 16,674 | 11.4 |
+| Virginia Beach (City) | 150,106 | 16,205 | 10.8 |
+| Chesterfield | 150,578 | 13,353 | 8.9 |
+| Henrico | 128,979 | 10,635 | 8.2 |
+| Chesapeake (City) | 86,216 | 9,613 | 11.1 |
+| Arlington | 83,257 | 6,762 | 8.1 |
+| Norfolk (City) | 55,646 | 6,573 | 11.8 |
+| Richmond (City) | 74,859 | 6,322 | 8.4 |
+| Spotsylvania | 54,521 | 6,304 | 11.6 |
+| Newport News (City) | 50,574 | 6,265 | 12.4 |
+
+**Takeaway:** surge (new-to-2025G) voters are disproportionately young (24.9% of 18–24 referendum voters skipped 2025G) and lean Rep (9.8% Dem vs 11.8% Rep). Net churn vs 2025G: ≈+358,466 (690,881 lost − 332,415 gained, VAN-matched).

@@ -17,6 +17,13 @@ Ready-to-share **PDF**: [`analysis/Referendum2026_Summary.pdf`](analysis/Referen
 interactive HTML source: [`analysis/Referendum2026_Summary.html`](analysis/Referendum2026_Summary.html) ·
 full written analysis: [`analysis/LTV2026_Ref_Analysis.md`](analysis/LTV2026_Ref_Analysis.md).
 
+### Companion brief — voter churn (drop-off & surge)
+Who the 2025 electorate lost (690,881 dropped off) and gained (332,415 surged in) by April 2026:
+
+![Voter churn brief](analysis/Referendum2026_Churn_Brief_preview.png)
+
+PDF: [`analysis/Referendum2026_Churn_Brief.pdf`](analysis/Referendum2026_Churn_Brief.pdf) · HTML: [`analysis/Referendum2026_Churn_Brief.html`](analysis/Referendum2026_Churn_Brief.html) · detail in `LTV2026_Ref_Analysis.md` §5i–5j. _(Voter-level targeting list held privately, not in this repo.)_
+
 ## Contents
 | Path | What |
 |------|------|

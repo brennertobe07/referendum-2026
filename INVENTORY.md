@@ -50,6 +50,7 @@ Phase 4 reconciliation against the SBE results file
 | INSTANCE-1.Historic.dbo.LTV2026_Ref_Votemethod | TABLE | Derived vote-method (Polls / AB_Inperson / AB_Mail / AB_Other) per voter, 3,101,912 rows | 2026-05-21 (Phase 2b) | LTV2026_Ref, Absentee.dbo.Daily_Absentee_List |
 | INSTANCE-1.Historic.dbo.LTV2026_Ref_Base | TABLE | Phase 5 analysis base: LTV voters enriched with Van party/score/vote-history + RVL-match + age/age-band/party-bucket, 3,101,912 rows | 2026-05-21 (Phase 5) | LTV2026_Ref, LTV2026_Ref_Votemethod, Voter.dbo.Van, Voter.dbo.RVL |
 | INSTANCE-1.Historic.dbo.Dropoff_2025G_Base | TABLE | Drop-off analysis base (§5i): 2025-General voters still in VAN (3,434,884) + age/sex/county/CD/party + `voted_ref` flag (did they vote the referendum) | 2026-05-21 | Voter.dbo.Van, LTV2026_Ref_Votemethod |
+| INSTANCE-1.Historic.dbo.Surge_2026_Base | TABLE | Surge analysis base (§5j): referendum voters present in VAN (3,076,418) + demographics + `voted_2025g` flag (did they also vote the 2025 General) | 2026-05-21 | Voter.dbo.Van, LTV2026_Ref_Votemethod |
 | INSTANCE-1.Historic.dbo.LTV2025_GEN | TABLE | Prior LTV (2025 General) — schema reference | 2026-01-16 | — |
 | INSTANCE-1.Historic.dbo.LTV2025_GEN_Votemethod | TABLE | 2025 General vote-method detail | 2026-01-22 | — |
 | INSTANCE-1.Historic.dbo.LTV* (19 tables, 2020–2025) | TABLE | Historical LTV files per cycle | 2024–2026 | — |
@@ -92,7 +93,9 @@ Phase 4 reconciliation against the SBE results file
 | `C:\DPVA_Projects\Referendum2026\analysis\Referendum2026_Summary.html` | HTML | Publication | keep | Self-contained one-page visual brief (inline SVG charts) |
 | `C:\DPVA_Projects\Referendum2026\analysis\Referendum2026_Summary.pdf` | PDF | Publication | keep | Print/share version of the brief (2 pages) |
 | `C:\DPVA_Projects\Referendum2026\analysis\Referendum2026_Summary_preview.png` | PNG | Publication | keep | Preview image embedded in README |
-| `C:\DPVA_Projects\Referendum2026\analysis\make_publication.py` | PY | Publication | keep | Builds the HTML brief from the xlsx + ENR summary |
+| `C:\DPVA_Projects\Referendum2026\analysis\make_publication.py` | PY | Publication | keep | Builds the main HTML brief from the xlsx + ENR summary |
+| `C:\DPVA_Projects\Referendum2026\analysis\Referendum2026_Churn_Brief.html` / `.pdf` / `_preview.png` | HTML/PDF/PNG | Publication | keep | One-page voter-churn brief (drop-off & surge) |
+| `C:\DPVA_Projects\Referendum2026\analysis\make_churn_brief.py` | PY | Publication | keep | Builds the churn brief from §5i/§5j xlsx sheets |
 
 ## 5. GitHub Repositories
 | Repo | Purpose | URL | Local Path | Last Commit |

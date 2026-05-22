@@ -162,6 +162,41 @@ def build_dropoff_base(hist):
         cx.execute(text("CREATE INDEX IX_dropoff_sfid ON Historic.dbo.Dropoff_2025G_Base(StateFileID);"))
 
 
+def surge_exists(hist):
+    n = pd.read_sql(text(
+        "SELECT COUNT(*) n FROM sys.tables WHERE name='Surge_2026_Base'"), hist)["n"][0]
+    return int(n) > 0
+
+
+def build_surge_base(hist):
+    """Referendum voters (present in VAN) + whether they ALSO voted the 2025 General.
+    Surge = voted referendum but NOT 2025G (the flip side of drop-off)."""
+    sql = f"""
+    IF OBJECT_ID('Historic.dbo.Surge_2026_Base','U') IS NOT NULL
+        DROP TABLE Historic.dbo.Surge_2026_Base;
+    SELECT
+        v.StateFileID,
+        v.Age,
+        CASE WHEN v.Age BETWEEN 18 AND 24 THEN '18-24' WHEN v.Age BETWEEN 25 AND 34 THEN '25-34'
+             WHEN v.Age BETWEEN 35 AND 44 THEN '35-44' WHEN v.Age BETWEEN 45 AND 54 THEN '45-54'
+             WHEN v.Age BETWEEN 55 AND 64 THEN '55-64' WHEN v.Age BETWEEN 65 AND 74 THEN '65-74'
+             WHEN v.Age >= 75 THEN '75+' ELSE 'Unknown' END AS age_band,
+        UPPER(v.Sex) AS sex,
+        v.CountyName,
+        v.CD,
+        v.HD,
+        {PARTY_VAN} AS party_bucket,
+        CASE WHEN NULLIF(LTRIM(RTRIM(v.General25)),'') IS NOT NULL THEN 1 ELSE 0 END AS voted_2025g
+    INTO Historic.dbo.Surge_2026_Base
+    FROM Voter.dbo.Van v
+    WHERE EXISTS (SELECT 1 FROM Historic.dbo.LTV2026_Ref_Votemethod m
+                  WHERE m.IDENTIFICATION_NUMBER = v.StateFileID);
+    """
+    with hist.begin() as cx:
+        cx.execute(text(sql))
+        cx.execute(text("CREATE INDEX IX_surge_sfid ON Historic.dbo.Surge_2026_Base(StateFileID);"))
+
+
 def q(engine, sql):
     return pd.read_sql(text(sql), engine)
 
@@ -464,6 +499,62 @@ def main():
               f"({dem_dr[0] if len(dem_dr) else 'n/a'}% Dem vs {rep_dr[0] if len(rep_dr) else 'n/a'}% Rep) — "
               f"the re-mobilization universe is young, Dem-leaning 2025 voters, concentrated in NoVa/urban "
               f"localities (by count) and college towns (by rate).\n")
+
+    # ---------- 5j Surge: referendum voters who skipped the 2025 General ----------
+    if not surge_exists(hist) or os.environ.get("REBUILD") == "1":
+        build_surge_base(hist)
+    SO = "Historic.dbo.Surge_2026_Base"
+    sov = q(hist, f"SELECT COUNT(*) refv, SUM(voted_2025g) returning, SUM(1-voted_2025g) surge FROM {SO}")
+    refv, returning, surgen = int(sov.refv[0]), int(sov.returning[0]), int(sov.surge[0])
+    md.append("## 5j. Surge — referendum voters who skipped the 2025 General\n")
+    md.append(f"Of **{refv:,}** referendum voters present in VAN, **{surgen:,} ({surgen/refv*100:.1f}%)** "
+              f"did **not** vote in the 2025 General — the newer / irregular voters this referendum activated "
+              f"(vs {returning:,} who voted both). Surge rate below = skipped-2025G ÷ referendum voters in the "
+              f"group. (Referendum voters with no VAN record at all — ~25k new registrations — are additional "
+              f"surge not counted here.)\n")
+
+    spar = q(hist, f"SELECT party_bucket, COUNT(*) ref_voters, SUM(1-voted_2025g) surge FROM {SO} GROUP BY party_bucket")
+    spar["surge_pct"] = (spar.surge / spar.ref_voters * 100).round(1)
+    spar["party_bucket"] = pd.Categorical(spar.party_bucket, PARTY_ORDER, ordered=True)
+    spar = spar.sort_values("party_bucket")
+    sheets["5j_surge_party"] = spar
+    md.append("By party (dashboard methodology):\n")
+    md.append(df_to_md(spar))
+
+    sage = q(hist, f"SELECT age_band, COUNT(*) ref_voters, SUM(1-voted_2025g) surge FROM {SO} GROUP BY age_band")
+    sage["surge_pct"] = (sage.surge / sage.ref_voters * 100).round(1)
+    sage["age_band"] = pd.Categorical(sage.age_band, BAND_ORDER, ordered=True)
+    sage = sage.sort_values("age_band")
+    sheets["5j_surge_age"] = sage
+    md.append("\nBy age band:\n")
+    md.append(df_to_md(sage))
+
+    sgen = q(hist, f"SELECT sex AS gender, COUNT(*) ref_voters, SUM(1-voted_2025g) surge FROM {SO} WHERE sex IN ('M','F') GROUP BY sex")
+    sgen["surge_pct"] = (sgen.surge / sgen.ref_voters * 100).round(1)
+    sheets["5j_surge_gender"] = sgen
+    md.append("\nBy gender:\n")
+    md.append(df_to_md(sgen))
+
+    scd = q(hist, f"SELECT CD, COUNT(*) ref_voters, SUM(1-voted_2025g) surge FROM {SO} WHERE CD IS NOT NULL AND CD<>'' GROUP BY CD ORDER BY CD")
+    scd["surge_pct"] = (scd.surge / scd.ref_voters * 100).round(1)
+    sheets["5j_surge_cd"] = scd
+    md.append("\nBy Congressional District:\n")
+    md.append(df_to_md(scd))
+
+    scc = q(hist, f"SELECT TOP 12 CountyName AS locality, COUNT(*) ref_voters, SUM(1-voted_2025g) surge FROM {SO} GROUP BY CountyName ORDER BY SUM(1-voted_2025g) DESC")
+    scc["surge_pct"] = (scc.surge / scc.ref_voters * 100).round(1)
+    sheets["5j_surge_county_count"] = scc
+    md.append("\nTop 12 localities by surge **count**:\n")
+    md.append(df_to_md(scc[["locality", "ref_voters", "surge", "surge_pct"]]))
+
+    s_dem = spar.loc[spar.party_bucket == "Dem", "surge_pct"].values
+    s_rep = spar.loc[spar.party_bucket == "Rep", "surge_pct"].values
+    s_y = sage.loc[sage.age_band == "18-24", "surge_pct"].values
+    md.append(f"\n**Takeaway:** surge (new-to-2025G) voters are disproportionately young "
+              f"({s_y[0] if len(s_y) else 'n/a'}% of 18–24 referendum voters skipped 2025G) and lean "
+              f"{'Dem' if (len(s_dem) and len(s_rep) and s_dem[0] > s_rep[0]) else 'Rep'} "
+              f"({s_dem[0] if len(s_dem) else 'n/a'}% Dem vs {s_rep[0] if len(s_rep) else 'n/a'}% Rep). "
+              f"Net churn vs 2025G: ≈{dropn - surgen:+,} ({dropn:,} lost − {surgen:,} gained, VAN-matched).\n")
 
     # ---------- write outputs ----------
     # Prepend the hand-authored Phase 6 executive summary if present.

@@ -32,6 +32,12 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 4. **Vote method skews old-early, young-day.** Statewide 54.9% voted election day,
    34.7% in-person early, 10.2% mail. The 65+ bands voted early/mail at far higher
    rates; under-35s concentrated on election day.
+5. **Re-mobilization target (drop-off).** 20.1% of 2025-General voters (690,881) did
+   not return for the referendum. Drop-off skewed **young** (42% of 18–24) and
+   **Democratic** (22.3% Dem vs 17.1% Rep), so the win came despite higher attrition
+   from the Dem 2025 base. Highest volume in NoVa/urban (Fairfax 101k); highest rate in
+   college towns (Harrisonburg 28%, Charlottesville/Williamsburg ~24%). Priority
+   re-engagement universe: young, Dem-leaning 2025 voters. See §5i.
 
 **Data-quality issues to follow up:**
 - **COVINGTON CITY (580)** and **SUSSEX COUNTY (183)** are under-reported in the SBE LTV
@@ -250,3 +256,87 @@ Precinct turnout: statewide mean 52.1%, SD 9.2pp (precincts with >=100 active re
 | MARTINSVILLE CITY | 003 - PRECINCT #3 | 397 | 1,311 | 30.3 | -2.4 |
 
 **Voters not matching a current RVL record: 2 (0.00%)** — pre-RVL-refresh new registrations, data-quality mismatches, or voters since removed from the roll.
+
+## 5i. Drop-off — 2025 General voters who skipped the referendum
+
+Of **3,434,884** voters who cast a 2025 General ballot and are still registered in VAN, **2,744,003 returned (79.9%)** for the referendum and **690,881 dropped off (20.1%)**. (An ~80% hold from a Governor's-year general to an April special is high.) Drop-off rate below = skipped ÷ 2025G voters in the group.
+
+By party (dashboard methodology):
+
+| party_bucket | g25_voters | dropped_off | dropoff_pct |
+|---|---|---|---|
+| Dem | 1,898,003 | 423,852 | 22.3 |
+| Rep | 1,499,364 | 256,065 | 17.1 |
+| Unknown | 37,517 | 10,964 | 29.2 |
+
+By age band:
+
+| age_band | g25_voters | dropped_off | dropoff_pct |
+|---|---|---|---|
+| 18-24 | 215,728 | 90,516 | 42 |
+| 25-34 | 386,335 | 125,803 | 32.6 |
+| 35-44 | 507,302 | 124,584 | 24.6 |
+| 45-54 | 549,620 | 113,205 | 20.6 |
+| 55-64 | 666,243 | 102,423 | 15.4 |
+| 65-74 | 636,905 | 71,222 | 11.2 |
+| 75+ | 472,749 | 63,128 | 13.4 |
+| Unknown | 2 | 0 | 0 |
+
+By gender:
+
+| gender | g25_voters | dropped_off | dropoff_pct |
+|---|---|---|---|
+| M | 1,563,439 | 302,556 | 19.4 |
+| F | 1,865,930 | 386,420 | 20.7 |
+
+By Congressional District:
+
+| CD | g25_voters | dropped_off | dropoff_pct |
+|---|---|---|---|
+| 001 | 396,961 | 70,343 | 17.7 |
+| 002 | 312,810 | 62,387 | 19.9 |
+| 003 | 239,973 | 52,758 | 22 |
+| 004 | 307,459 | 67,475 | 21.9 |
+| 005 | 345,424 | 59,746 | 17.3 |
+| 006 | 309,206 | 53,522 | 17.3 |
+| 007 | 302,051 | 63,427 | 21 |
+| 008 | 300,435 | 69,842 | 23.2 |
+| 009 | 290,769 | 51,804 | 17.8 |
+| 010 | 311,842 | 68,094 | 21.8 |
+| 011 | 317,954 | 71,483 | 22.5 |
+
+Top 12 localities by drop-off **count** (where the lost voters are):
+
+| locality | g25_voters | dropped_off | dropoff_pct |
+|---|---|---|---|
+| Fairfax | 447,400 | 101,128 | 22.6 |
+| Loudoun | 169,052 | 39,141 | 23.2 |
+| Prince William | 166,160 | 37,715 | 22.7 |
+| Virginia Beach (City) | 170,015 | 36,114 | 21.2 |
+| Chesterfield | 170,654 | 33,429 | 19.6 |
+| Henrico | 148,965 | 30,621 | 20.6 |
+| Arlington | 99,732 | 23,237 | 23.3 |
+| Richmond (City) | 90,278 | 21,741 | 24.1 |
+| Chesapeake (City) | 96,441 | 19,838 | 20.6 |
+| Alexandria (City) | 62,937 | 14,991 | 23.8 |
+| Norfolk (City) | 63,595 | 14,522 | 22.8 |
+| Stafford | 63,319 | 13,274 | 21 |
+
+Top 12 localities by drop-off **rate** (min 5,000 2025G voters):
+
+| locality | g25_voters | dropped_off | dropoff_pct |
+|---|---|---|---|
+| Harrisonburg (City) | 13,087 | 3,702 | 28.3 |
+| Hopewell (City) | 6,662 | 1,674 | 25.1 |
+| Fredericksburg (City) | 10,562 | 2,637 | 25 |
+| Charlottesville (City) | 18,516 | 4,464 | 24.1 |
+| Richmond (City) | 90,278 | 21,741 | 24.1 |
+| Petersburg (City) | 10,009 | 2,408 | 24.1 |
+| Williamsburg (City) | 6,478 | 1,544 | 23.8 |
+| Alexandria (City) | 62,937 | 14,991 | 23.8 |
+| Buchanan | 5,423 | 1,291 | 23.8 |
+| Arlington | 99,732 | 23,237 | 23.3 |
+| Loudoun | 169,052 | 39,141 | 23.2 |
+| Wise | 11,092 | 2,545 | 22.9 |
+
+**Takeaway:** drop-off skews young (42.0% of 18–24) and Democratic (22.3% Dem vs 17.1% Rep) — the re-mobilization universe is young, Dem-leaning 2025 voters, concentrated in NoVa/urban localities (by count) and college towns (by rate).

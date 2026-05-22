@@ -17,3 +17,7 @@ desktop.ini
 # Local render previews (notes)
 notes/*.png
 notes/*.pdf
+
+# Safety: never commit voter-level targeting files (PII)
+dropoff_*.csv
+**/dropoff_*.csv

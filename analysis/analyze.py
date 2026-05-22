@@ -128,6 +128,40 @@ def build_base(hist, voter):
     return int(n)
 
 
+def dropoff_exists(hist):
+    n = pd.read_sql(text(
+        "SELECT COUNT(*) n FROM sys.tables WHERE name='Dropoff_2025G_Base'"), hist)["n"][0]
+    return int(n) > 0
+
+
+def build_dropoff_base(hist):
+    """2025 General voters (still in VAN) + whether they also voted the 2026 referendum."""
+    sql = f"""
+    IF OBJECT_ID('Historic.dbo.Dropoff_2025G_Base','U') IS NOT NULL
+        DROP TABLE Historic.dbo.Dropoff_2025G_Base;
+    SELECT
+        v.StateFileID,
+        v.Age,
+        CASE WHEN v.Age BETWEEN 18 AND 24 THEN '18-24' WHEN v.Age BETWEEN 25 AND 34 THEN '25-34'
+             WHEN v.Age BETWEEN 35 AND 44 THEN '35-44' WHEN v.Age BETWEEN 45 AND 54 THEN '45-54'
+             WHEN v.Age BETWEEN 55 AND 64 THEN '55-64' WHEN v.Age BETWEEN 65 AND 74 THEN '65-74'
+             WHEN v.Age >= 75 THEN '75+' ELSE 'Unknown' END AS age_band,
+        UPPER(v.Sex) AS sex,
+        v.CountyName,
+        v.CD,
+        v.HD,
+        {PARTY_VAN} AS party_bucket,
+        CASE WHEN EXISTS (SELECT 1 FROM Historic.dbo.LTV2026_Ref_Votemethod m
+                          WHERE m.IDENTIFICATION_NUMBER = v.StateFileID) THEN 1 ELSE 0 END AS voted_ref
+    INTO Historic.dbo.Dropoff_2025G_Base
+    FROM Voter.dbo.Van v
+    WHERE NULLIF(LTRIM(RTRIM(v.General25)),'') IS NOT NULL;
+    """
+    with hist.begin() as cx:
+        cx.execute(text(sql))
+        cx.execute(text("CREATE INDEX IX_dropoff_sfid ON Historic.dbo.Dropoff_2025G_Base(StateFileID);"))
+
+
 def q(engine, sql):
     return pd.read_sql(text(sql), engine)
 
@@ -371,6 +405,65 @@ def main():
     md.append(f"\n**Voters not matching a current RVL record: {nrvl:,} "
               f"({nrvl/int(not_rvl.total[0])*100:.2f}%)** — pre-RVL-refresh new registrations, "
               f"data-quality mismatches, or voters since removed from the roll.\n")
+
+    # ---------- 5i Drop-off: 2025 General voters who skipped the referendum ----------
+    if not dropoff_exists(hist) or os.environ.get("REBUILD") == "1":
+        build_dropoff_base(hist)
+    DO = "Historic.dbo.Dropoff_2025G_Base"
+    ov = q(hist, f"SELECT COUNT(*) g25, SUM(voted_ref) back, SUM(1-voted_ref) dropped FROM {DO}")
+    g25n, back, dropn = int(ov.g25[0]), int(ov.back[0]), int(ov.dropped[0])
+    md.append("## 5i. Drop-off — 2025 General voters who skipped the referendum\n")
+    md.append(f"Of **{g25n:,}** voters who cast a 2025 General ballot and are still registered in VAN, "
+              f"**{back:,} returned ({back/g25n*100:.1f}%)** for the referendum and **{dropn:,} dropped off "
+              f"({dropn/g25n*100:.1f}%)**. (An ~80% hold from a Governor's-year general to an April special is "
+              f"high.) Drop-off rate below = skipped ÷ 2025G voters in the group.\n")
+
+    dpar = q(hist, f"SELECT party_bucket, COUNT(*) g25_voters, SUM(1-voted_ref) dropped_off FROM {DO} GROUP BY party_bucket")
+    dpar["dropoff_pct"] = (dpar.dropped_off / dpar.g25_voters * 100).round(1)
+    dpar["party_bucket"] = pd.Categorical(dpar.party_bucket, PARTY_ORDER, ordered=True)
+    dpar = dpar.sort_values("party_bucket")
+    sheets["5i_dropoff_party"] = dpar
+    md.append("By party (dashboard methodology):\n")
+    md.append(df_to_md(dpar))
+
+    dage = q(hist, f"SELECT age_band, COUNT(*) g25_voters, SUM(1-voted_ref) dropped_off FROM {DO} GROUP BY age_band")
+    dage["dropoff_pct"] = (dage.dropped_off / dage.g25_voters * 100).round(1)
+    dage["age_band"] = pd.Categorical(dage.age_band, BAND_ORDER, ordered=True)
+    dage = dage.sort_values("age_band")
+    sheets["5i_dropoff_age"] = dage
+    md.append("\nBy age band:\n")
+    md.append(df_to_md(dage))
+
+    dgen = q(hist, f"SELECT sex AS gender, COUNT(*) g25_voters, SUM(1-voted_ref) dropped_off FROM {DO} WHERE sex IN ('M','F') GROUP BY sex")
+    dgen["dropoff_pct"] = (dgen.dropped_off / dgen.g25_voters * 100).round(1)
+    sheets["5i_dropoff_gender"] = dgen
+    md.append("\nBy gender:\n")
+    md.append(df_to_md(dgen))
+
+    dcd = q(hist, f"SELECT CD, COUNT(*) g25_voters, SUM(1-voted_ref) dropped_off FROM {DO} WHERE CD IS NOT NULL AND CD<>'' GROUP BY CD ORDER BY CD")
+    dcd["dropoff_pct"] = (dcd.dropped_off / dcd.g25_voters * 100).round(1)
+    sheets["5i_dropoff_cd"] = dcd
+    md.append("\nBy Congressional District:\n")
+    md.append(df_to_md(dcd))
+
+    dcc = q(hist, f"SELECT TOP 12 CountyName AS locality, COUNT(*) g25_voters, SUM(1-voted_ref) dropped_off FROM {DO} GROUP BY CountyName ORDER BY SUM(1-voted_ref) DESC")
+    dcc["dropoff_pct"] = (dcc.dropped_off / dcc.g25_voters * 100).round(1)
+    sheets["5i_dropoff_county_count"] = dcc
+    dcr = q(hist, f"SELECT TOP 12 CountyName AS locality, COUNT(*) g25_voters, SUM(1-voted_ref) dropped_off FROM {DO} GROUP BY CountyName HAVING COUNT(*)>=5000 ORDER BY 1.0*SUM(1-voted_ref)/COUNT(*) DESC")
+    dcr["dropoff_pct"] = (dcr.dropped_off / dcr.g25_voters * 100).round(1)
+    sheets["5i_dropoff_county_rate"] = dcr
+    md.append("\nTop 12 localities by drop-off **count** (where the lost voters are):\n")
+    md.append(df_to_md(dcc[["locality", "g25_voters", "dropped_off", "dropoff_pct"]]))
+    md.append("\nTop 12 localities by drop-off **rate** (min 5,000 2025G voters):\n")
+    md.append(df_to_md(dcr[["locality", "g25_voters", "dropped_off", "dropoff_pct"]]))
+
+    dem_dr = dpar.loc[dpar.party_bucket == "Dem", "dropoff_pct"].values
+    rep_dr = dpar.loc[dpar.party_bucket == "Rep", "dropoff_pct"].values
+    y_dr = dage.loc[dage.age_band == "18-24", "dropoff_pct"].values
+    md.append(f"\n**Takeaway:** drop-off skews young ({y_dr[0] if len(y_dr) else 'n/a'}% of 18–24) and Democratic "
+              f"({dem_dr[0] if len(dem_dr) else 'n/a'}% Dem vs {rep_dr[0] if len(rep_dr) else 'n/a'}% Rep) — "
+              f"the re-mobilization universe is young, Dem-leaning 2025 voters, concentrated in NoVa/urban "
+              f"localities (by count) and college towns (by rate).\n")
 
     # ---------- write outputs ----------
     # Prepend the hand-authored Phase 6 executive summary if present.

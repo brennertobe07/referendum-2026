@@ -11,7 +11,8 @@ Aggregate only — no PII.
 """
 from pathlib import Path
 import pandas as pd
-from make_publication import svg_bars, svg_grouped, esc, INK, BLUE, LBLUE, DEM, REP, NAV_CSS, nav_html
+from make_publication import (svg_bars, svg_grouped, esc, INK, BLUE, LBLUE, DEM, REP,
+                              NAV_CSS, nav_html, BRAND_CSS, brand_bar)
 
 PROJ = Path(r"C:\DPVA_Projects\Referendum2026")
 XLSX = PROJ / "analysis" / "LTV2026_Ref_Analysis.xlsx"
@@ -86,7 +87,9 @@ def main():
   @page {{ size:letter; margin:0; }}
   @media print {{ body {{ background:#fff; }} .page {{ padding:9mm 12mm; max-width:none; zoom:0.82; }} }}
   {NAV_CSS}
+  {BRAND_CSS}
 </style></head><body><div class="page">
+{brand_bar()}
 {nav_html('churn')}
 <h1>Referendum 2026 — Voter Churn: Drop-off &amp; Surge</h1>
 <div class="sub">Who left and who arrived between the 2025 General and the April 21, 2026 referendum · DPVA · 2026-05-21</div>

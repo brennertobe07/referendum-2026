@@ -103,6 +103,18 @@ Turnout % = LTV voters / RVL active registered, by age (as of 2026-04-21). Basel
 | 75+ | 441,737 | 648,585 | 68.1 | 70 | -1.9 |
 | Unknown | 4,202 | 18,898 | 22.2 | 0 | 22.2 |
 
+Referendum turnout by age × party (Van universe; Rep intensity higher at every age):
+
+| age_band | Dem_turnout_pct | Rep_turnout_pct | Rep_minus_Dem_pp |
+|---|---|---|---|
+| 18-24 | 24.1 | 29.3 | 5.2 |
+| 25-34 | 26.8 | 31.2 | 4.4 |
+| 35-44 | 39.5 | 43.4 | 3.9 |
+| 45-54 | 49.6 | 53.6 | 4 |
+| 55-64 | 58.4 | 64 | 5.6 |
+| 65-74 | 67.4 | 71.6 | 4.2 |
+| 75+ | 63.3 | 66.2 | 2.9 |
+
 ## 5c. Gender
 
 | gender | voted | registered | turnout_pct | baseline_2025G_pct | vs_baseline_pp |

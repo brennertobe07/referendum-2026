@@ -297,6 +297,25 @@ def main():
     md.append(df_to_md(age))
     md.append("")
 
+    # turnout by age x party (Van universe: registered = all Van, voted = referendum voters in Van)
+    if not surge_exists(hist) or os.environ.get("REBUILD") == "1":
+        build_surge_base(hist)
+    ab_van = AGE_BAND_SQL.replace("age", "Age")
+    reg_ap = q(voter, f"SELECT {ab_van} AS age_band, {PARTY_VAN} AS party_bucket, COUNT(*) AS registered FROM Voter.dbo.Van GROUP BY {ab_van}, {PARTY_VAN}")
+    vot_ap = q(hist, "SELECT age_band, party_bucket, COUNT(*) AS voted FROM Historic.dbo.Surge_2026_Base GROUP BY age_band, party_bucket")
+    tap = vot_ap.merge(reg_ap, on=["age_band", "party_bucket"])
+    tap = tap[tap.party_bucket.isin(["Dem", "Rep"])].copy()
+    tap["turnout_pct"] = (tap.voted / tap.registered * 100).round(1)
+    sheets["5b_turnout_age_party"] = tap.sort_values(["age_band", "party_bucket"])
+    _b7 = [b for b in BAND_ORDER if b != "Unknown"]
+    tpiv = tap.pivot(index="age_band", columns="party_bucket", values="turnout_pct").reindex(_b7).reset_index()
+    tpiv.columns.name = None
+    tpiv = tpiv.rename(columns={"Dem": "Dem_turnout_pct", "Rep": "Rep_turnout_pct"})
+    tpiv["Rep_minus_Dem_pp"] = (tpiv.Rep_turnout_pct - tpiv.Dem_turnout_pct).round(1)
+    md.append("Referendum turnout by age × party (Van universe; Rep intensity higher at every age):\n")
+    md.append(df_to_md(tpiv))
+    md.append("")
+
     # ---------- 5c Gender ----------
     voted_g = q(hist, f"SELECT gender, COUNT(*) AS voted FROM {AB} WHERE gender IN ('M','F') GROUP BY gender")
     reg_g = q(voter, "SELECT UPPER(LTRIM(RTRIM(GENDER))) AS gender, COUNT(*) AS registered FROM Voter.dbo.RVL WHERE STATUS='Active' AND UPPER(LTRIM(RTRIM(GENDER))) IN ('M','F') GROUP BY UPPER(LTRIM(RTRIM(GENDER)))")

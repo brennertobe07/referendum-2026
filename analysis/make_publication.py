@@ -167,7 +167,12 @@ def main():
     vh_lab = [f"{int(x)}-of-4" for x in vh.generals_voted_of_4]
     vh_val = [round(float(x), 1) for x in vh.pct]
 
-    chart_age = svg_grouped(cats, ref, base, "Referendum", "2025 General")
+    tap = pd.read_excel(XLSX, "5b_turnout_age_party")
+    BAND7 = ["18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75+"]
+    tp = tap.pivot(index="age_band", columns="party_bucket", values="turnout_pct").reindex(BAND7)
+    chart_age = svg_grouped(BAND7, [round(float(x), 1) for x in tp["Dem"]],
+                            [round(float(x), 1) for x in tp["Rep"]],
+                            "Dem", "Rep", ymax=80, c1=DEM, c2=REP, gstep=20)
     chart_method = svg_donut(donut_items, [BLUE, LBLUE, "#cbd6e6"])
     chart_party = svg_bars(pbars_lab, pbars_val, [DEM, REP], ymax=70, suffix="%")
     chart_vh = svg_bars(vh_lab, vh_val, [NO, "#d99", "#cbd5e0", LBLUE, BLUE], ymax=65, suffix="%")
@@ -228,7 +233,7 @@ def main():
 <div class="resultbar">{svg_result(s['yes_pct'], s['no_pct'])}</div>
 
 <div class="grid">
-  <div class="panel"><h3>Turnout by age vs 2025 General</h3><p class="cap">% of active registered voting, by age band</p>{chart_age}</div>
+  <div class="panel"><h3>Turnout by age &amp; party</h3><p class="cap">% turnout, Dem vs Rep, by age band (Van universe)</p>{chart_age}</div>
   <div class="panel"><h3>How people voted</h3><p class="cap">share of all {s['total']/1e6:.1f}M voters by method</p>{chart_method}</div>
   <div class="panel"><h3>Turnout by party</h3><p class="cap">% turnout (Van party ID + Dem-support score, dashboard method)</p>{chart_party}</div>
   <div class="panel"><h3>Voter consistency</h3><p class="cap">% of voters by # of last 4 Nov generals voted</p>{chart_vh}</div>

@@ -53,7 +53,7 @@ Phase 4 reconciliation against the SBE results file
 | INSTANCE-1.Historic.dbo.LTV2025_GEN_Votemethod | TABLE | 2025 General vote-method detail | 2026-01-22 | — |
 | INSTANCE-1.Historic.dbo.LTV* (19 tables, 2020–2025) | TABLE | Historical LTV files per cycle | 2024–2026 | — |
 | INSTANCE-1.Absentee.dbo.Daily_Absentee_List | TABLE | Current absentee snapshot — holds 26SP_Apr (1,520,270 rows) | rebuilt 2026-05-09 | SBE feed |
-| INSTANCE-1.Absentee.dbo.DAL_26SP_Apr_* | TABLE | Daily absentee snapshots (subset of 92 `DAL_*` tables) | Mar–Apr 2026 | — |
+| INSTANCE-1.Absentee.dbo.DAL_26SP_Apr_* | TABLE | Daily absentee snapshots — **3 residual tables dropped 2026-05-21** (≈443 MB; aggregates retained in Historical_Daily_Totals, raw dailies in Drive archive). See `handoff/DAL_26SP_Apr_snapshots_dropped.md` | Mar 2026 (dropped) | — |
 | INSTANCE-1.Absentee.dbo.Cure_History | TABLE | Cumulative cure / rejection tracking | 2026-03-13 | `usp_Refresh_Cure_History` |
 | INSTANCE-1.Absentee.dbo.Historical_Daily_Totals | TABLE | Daily aggregated counts per election | 2026-03-25 | `load_historical_daily.py` |
 | INSTANCE-1.Absentee.dbo.dropped_today | TABLE | Voters dropped since first snapshot | — | — |
@@ -67,15 +67,14 @@ Phase 4 reconciliation against the SBE results file
 ## 4. Data Files (local + cloud)
 | Path | Format | Source | Retention | Notes |
 |------|--------|--------|-----------|-------|
-| `C:\Temp\SBE\LTWV\LTV2026_Ref.csv` | CSV (1.27 GB) | SBE | keep | **3,101,912 rows, 50 cols** — Phase 1–2 source |
-| `C:\Temp\SBE\LTWV\LTV2026_Ref.zip` | ZIP (147 MB) | SBE | keep | Zipped copy of above |
+| `C:\Temp\SBE\LTWV\LTV2026_Ref.zip` | ZIP (147 MB) | SBE | keep | Contains `LTV2026_Ref.csv` (3,101,912 rows, 50 cols). **The loose 1.27 GB CSV was deleted 2026-05-21** to reclaim space — recover by unzipping; data also in `Historic.dbo.LTV2026_Ref` |
 | `C:\Temp\SBE\Results_Winners\NewFormat\Election Results2026_Ref.csv` | CSV | SBE (election night) | keep | Phase 4 Source A |
 | `C:\Temp\SBE\Results_Winners\NewFormat\Election Turnout_2026_Ref.csv` | CSV | SBE | keep | Turnout by locality |
 | `C:\Temp\SBE\Results_Winners\NewFormat\EnrAbsenteeRaw_2026_Ref.csv` | CSV | SBE/ENR | keep | ENR absentee raw |
 | `C:\Absentee\26SP_Apr\Daily_Absentee_List.csv` | CSV (205 MB) | SBE | keep | Latest extracted DAL |
 | `C:\Absentee\26SP_Apr\daily.zip` | ZIP | SBE | keep | Daily download |
 | `C:\Temp\SBE\Absentee\2026_Apr21\*.zip` | ZIP (daily) | SBE | keep | ~17 daily DAL snapshots (Mar 6–25) |
-| `G:\My Drive\Absentee26SP_Apr\Daily_List\` | ZIP archive | pipeline | archive | Dated daily zips (historical source) |
+| `G:\My Drive\Absentee_Archive\Absentee26SP_Apr\Daily_File\` | ZIP archive | pipeline | archive | 63 dated daily zips — **moved here from `Absentee26SP_Apr\Daily_List\` 2026-05-21** (historical-comparison source) |
 | `G:\My Drive\Absentee26SP_Apr\Permanent_Absentees\` | CSV | pipeline | archive | Permanent absentee exports |
 | `G:\My Drive\Absentee26SP_Apr\03.25.2026 - April 21st Statewide Absentee.zip` | ZIP (353 MB) | SBE | archive | Statewide absentee snapshot |
 | `C:\Absentee\Cure_backup\Cure_History_YYYY-MM-DD.csv` | CSV | pipeline | archive | Daily cure backups |
@@ -150,8 +149,9 @@ All cycle tasks are now **Disabled** (post-election wind-down). Exported full li
 ## 10. Wrap-up Checklist
 - [x] All scripts committed to git (repo `referendum-2026`, pushed 2026-05-21)
 - [x] Final backup zip in C:\Scripts\Python\Backups\ (`DPVA_Pipeline_Backup_20260521_141527.zip`, 2026-05-21; absentee+cure pipeline. NOTE: ENR scripts not in this zip — versioned in `april-referendum-enr` repo)
-- [ ] Google Drive archive moved from Daily_List\ to Absentee_Archive\
+- [x] Google Drive archive moved from Daily_List\ to Absentee_Archive\ (63 zips → `Absentee_Archive\Absentee26SP_Apr\Daily_File\`, 2026-05-21)
+- [x] Space reclaimed: loose 1.27 GB `LTV2026_Ref.csv` deleted (zip kept); 3 residual DAL_26SP_Apr snapshot tables dropped (~443 MB)
 - [ ] SQL tables documented in section 3
 - [ ] Reference docs current
-- [ ] Live URLs decommissioned or repurposed for next cycle
-- [ ] Inventory marked Archived
+- [~] Live URLs — **intentionally kept live** as a frozen historical reference (data frozen at the final 2026-05-12 snapshot; pipelines disabled). Verified 2026-05-21: enr (public) + absentee serve directly; cure behind Cloudflare Access. Revisit before the next cycle reuses the dashboards.
+- [ ] Inventory marked Archived — deferred while the reference dashboards remain live

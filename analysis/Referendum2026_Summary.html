@@ -25,7 +25,8 @@
   .twocol { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:14px; }
   .foot { margin-top:18px; font-size:10.5px; color:#7b8794; border-top:1px solid #dde3ea; padding-top:8px; }
   @page { size: letter; margin: 0; }
-  @media print { body { background:#fff; } .page { padding: 12mm 14mm; max-width:none; } }
+  /* print-only: scale the whole layout to fit a single US Letter page */
+  @media print { body { background:#fff; } .page { padding: 8mm 12mm; max-width:none; zoom: 0.70; } }
 </style></head><body><div class="page">
 
 <h1>Virginia Constitutional Amendment Referendum — April 21, 2026</h1>

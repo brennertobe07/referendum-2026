@@ -6,6 +6,14 @@ external dependencies) from the Phase 4/5 analysis outputs.
 
 Reads:  analysis\\LTV2026_Ref_Analysis.xlsx (sheets) + ENR summary.json
 Writes: analysis\\Referendum2026_Summary.html   (open in a browser; print to PDF)
+
+PDF (single US Letter page, no browser header/footer) — the print CSS uses
+zoom: 0.70 so it fits one page. Generate with a FRESH Edge profile to avoid a
+stale-cache 2-page result:
+    msedge --headless --disable-gpu --user-data-dir="%TEMP%\\ghpdf" ^
+      --print-to-pdf="analysis\\Referendum2026_Summary.pdf" ^
+      "file:///.../analysis/Referendum2026_Summary.html"
+Confirm with: python -c "from pypdf import PdfReader; print(len(PdfReader('....pdf').pages))"
 """
 import json
 from pathlib import Path
@@ -161,7 +169,8 @@ def main():
   .twocol {{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:14px; }}
   .foot {{ margin-top:18px; font-size:10.5px; color:#7b8794; border-top:1px solid {GRID}; padding-top:8px; }}
   @page {{ size: letter; margin: 0; }}
-  @media print {{ body {{ background:#fff; }} .page {{ padding: 12mm 14mm; max-width:none; }} }}
+  /* print-only: scale the whole layout to fit a single US Letter page */
+  @media print {{ body {{ background:#fff; }} .page {{ padding: 8mm 12mm; max-width:none; zoom: 0.70; }} }}
 </style></head><body><div class="page">
 
 <h1>Virginia Constitutional Amendment Referendum — April 21, 2026</h1>

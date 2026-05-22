@@ -158,6 +158,7 @@ def main():
     pv = party.set_index("party_bucket")
     pbars_lab = ["Dem", "Rep"]
     pbars_val = [round(float(pv.loc[b, "turnout_pct"]), 1) for b in pbars_lab]
+    votes_val = [round(float(pv.loc[b, "voted"]) / 1e6, 2) for b in ["Dem", "Rep"]]
     dem_reg = float(pv.loc["Dem", "registered"]) / 1e6
     rep_reg = float(pv.loc["Rep", "registered"]) / 1e6
     dem_share = round(float(pv.loc["Dem", "share_of_voters_pct"]))
@@ -174,7 +175,7 @@ def main():
                             [round(float(x), 1) for x in tp["Rep"]],
                             "Dem", "Rep", ymax=80, c1=DEM, c2=REP, gstep=20)
     chart_method = svg_donut(donut_items, [BLUE, LBLUE, "#cbd6e6"])
-    chart_party = svg_bars(pbars_lab, pbars_val, [DEM, REP], ymax=70, suffix="%")
+    chart_party = svg_bars(["Dem", "Rep"], votes_val, [DEM, REP], ymax=2.0, suffix="M")
     chart_vh = svg_bars(vh_lab, vh_val, [NO, "#d99", "#cbd5e0", LBLUE, BLUE], ymax=65, suffix="%")
 
     def loc_rows(df):
@@ -233,9 +234,9 @@ def main():
 <div class="resultbar">{svg_result(s['yes_pct'], s['no_pct'])}</div>
 
 <div class="grid">
-  <div class="panel"><h3>Turnout by age &amp; party</h3><p class="cap">% turnout, Dem vs Rep, by age band (Van universe)</p>{chart_age}</div>
+  <div class="panel"><h3>Turnout by age &amp; party</h3><p class="cap">turnout <b>rate</b> by age — Rep higher at every age, but Dems' larger base wins on volume (see Votes cast by party)</p>{chart_age}</div>
   <div class="panel"><h3>How people voted</h3><p class="cap">share of all {s['total']/1e6:.1f}M voters by method</p>{chart_method}</div>
-  <div class="panel"><h3>Turnout by party</h3><p class="cap">% turnout (Van party ID + Dem-support score, dashboard method)</p>{chart_party}</div>
+  <div class="panel"><h3>Votes cast by party</h3><p class="cap">millions of voters — Dem-leaning base <b>outvoted</b> Rep despite a lower turnout rate (why Yes won)</p>{chart_party}</div>
   <div class="panel"><h3>Voter consistency</h3><p class="cap">% of voters by # of last 4 Nov generals voted</p>{chart_vh}</div>
 </div>
 

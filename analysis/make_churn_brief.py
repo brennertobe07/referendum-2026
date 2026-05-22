@@ -50,8 +50,12 @@ def main():
         return ([round(float(x), 1) for x in p["Dem"]], [round(float(x), 1) for x in p["Rep"]])
     dd, dr = grp(dap)
     sd, sr = grp(sap)
-    c_dgrp = svg_grouped(BAND, dd, dr, "Dem", "Rep", w=470, h=215, ymax=50, c1=DEM, c2=REP, gstep=10)
-    c_sgrp = svg_grouped(BAND, sd, sr, "Dem", "Rep", w=470, h=215, ymax=30, c1=DEM, c2=REP, gstep=10)
+
+    def rmax(*series):  # next multiple of 10 above the max value, with headroom for labels
+        m = max(max(s) for s in series)
+        return ((int(m * 1.08) // 10) + 1) * 10
+    c_dgrp = svg_grouped(BAND, dd, dr, "Dem", "Rep", w=470, h=215, ymax=rmax(dd, dr), c1=DEM, c2=REP, gstep=10)
+    c_sgrp = svg_grouped(BAND, sd, sr, "Dem", "Rep", w=470, h=215, ymax=rmax(sd, sr), c1=DEM, c2=REP, gstep=10)
     top = dcp.sort_values("total", ascending=False).head(8)
     locd = [round(float(x) / 1000) for x in top.Dem]
     locr = [round(float(x) / 1000) for x in top.Rep]

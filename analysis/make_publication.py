@@ -68,7 +68,7 @@ def svg_result(yes_pct, no_pct, w=720, h=58):
 </svg>"""
 
 
-def svg_grouped(cats, s1, s2, l1, l2, w=440, h=250, ymax=80):
+def svg_grouped(cats, s1, s2, l1, l2, w=440, h=250, ymax=80, c1=BLUE, c2=LBLUE, gstep=20):
     pad_l, pad_b, pad_t = 34, 34, 14
     cw = (w - pad_l - 8) / len(cats)
     bw = cw * 0.34
@@ -76,11 +76,11 @@ def svg_grouped(cats, s1, s2, l1, l2, w=440, h=250, ymax=80):
     bars, labels = [], []
     for i, c in enumerate(cats):
         x0 = pad_l + i * cw + cw * 0.12
-        bars.append(f'<rect x="{x0:.1f}" y="{y(s1[i]):.1f}" width="{bw:.1f}" height="{y(0)-y(s1[i]):.1f}" fill="{BLUE}"/>')
-        bars.append(f'<rect x="{x0+bw:.1f}" y="{y(s2[i]):.1f}" width="{bw:.1f}" height="{y(0)-y(s2[i]):.1f}" fill="{LBLUE}"/>')
+        bars.append(f'<rect x="{x0:.1f}" y="{y(s1[i]):.1f}" width="{bw:.1f}" height="{y(0)-y(s1[i]):.1f}" fill="{c1}"/>')
+        bars.append(f'<rect x="{x0+bw:.1f}" y="{y(s2[i]):.1f}" width="{bw:.1f}" height="{y(0)-y(s2[i]):.1f}" fill="{c2}"/>')
         labels.append(f'<text x="{pad_l+i*cw+cw/2:.1f}" y="{h-pad_b+14}" font-size="9" text-anchor="middle" fill="{INK}">{esc(c)}</text>')
-    grid = "".join(f'<line x1="{pad_l}" y1="{y(g):.1f}" x2="{w}" y2="{y(g):.1f}" stroke="{GRID}"/><text x="{pad_l-4}" y="{y(g)+3:.1f}" font-size="8" text-anchor="end" fill="#7b8794">{g}</text>' for g in range(0, ymax + 1, 20))
-    leg = f'<rect x="{pad_l}" y="2" width="10" height="10" fill="{BLUE}"/><text x="{pad_l+14}" y="11" font-size="9" fill="{INK}">{l1}</text><rect x="{pad_l+90}" y="2" width="10" height="10" fill="{LBLUE}"/><text x="{pad_l+104}" y="11" font-size="9" fill="{INK}">{l2}</text>'
+    grid = "".join(f'<line x1="{pad_l}" y1="{y(g):.1f}" x2="{w}" y2="{y(g):.1f}" stroke="{GRID}"/><text x="{pad_l-4}" y="{y(g)+3:.1f}" font-size="8" text-anchor="end" fill="#7b8794">{g}</text>' for g in range(0, ymax + 1, gstep))
+    leg = f'<rect x="{pad_l}" y="2" width="10" height="10" fill="{c1}"/><text x="{pad_l+14}" y="11" font-size="9" fill="{INK}">{l1}</text><rect x="{pad_l+90}" y="2" width="10" height="10" fill="{c2}"/><text x="{pad_l+104}" y="11" font-size="9" fill="{INK}">{l2}</text>'
     return f'<svg viewBox="0 0 {w} {h}" width="100%" role="img">{grid}{"".join(bars)}{"".join(labels)}{leg}</svg>'
 
 

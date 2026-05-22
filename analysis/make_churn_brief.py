@@ -11,7 +11,7 @@ Aggregate only — no PII.
 """
 from pathlib import Path
 import pandas as pd
-from make_publication import svg_bars, esc, INK, BLUE, LBLUE, DEM, REP, NAV_CSS, nav_html
+from make_publication import svg_bars, svg_grouped, esc, INK, BLUE, LBLUE, DEM, REP, NAV_CSS, nav_html
 
 PROJ = Path(r"C:\DPVA_Projects\Referendum2026")
 XLSX = PROJ / "analysis" / "LTV2026_Ref_Analysis.xlsx"
@@ -28,11 +28,11 @@ def shorten(name):
 
 
 def main():
-    dage = pd.read_excel(XLSX, "5i_dropoff_age")
     dpar = pd.read_excel(XLSX, "5i_dropoff_party")
     dcc = pd.read_excel(XLSX, "5i_dropoff_county_count")
-    sage = pd.read_excel(XLSX, "5j_surge_age")
     spar = pd.read_excel(XLSX, "5j_surge_party")
+    dap = pd.read_excel(XLSX, "5i_dropoff_age_party")
+    sap = pd.read_excel(XLSX, "5j_surge_age_party")
 
     g25_total = int(dpar.g25_voters.sum())
     drop_total = int(dpar.dropped_off.sum())
@@ -40,19 +40,17 @@ def main():
     surge_total = int(spar.surge.sum())
     retention = (g25_total - drop_total) / g25_total * 100
     net = surge_total - drop_total
-
-    dage = dage[dage.age_band.isin(BAND)].set_index("age_band").reindex(BAND).reset_index()
-    sage = sage[sage.age_band.isin(BAND)].set_index("age_band").reindex(BAND).reset_index()
     dp = dpar.set_index("party_bucket")
     sp = spar.set_index("party_bucket")
 
-    # charts
-    c_dage = svg_bars(BAND, [round(float(x), 1) for x in dage.dropoff_pct], RED, w=460, h=200, ymax=50, suffix="%")
-    c_sage = svg_bars(BAND, [round(float(x), 1) for x in sage.surge_pct], GRN, w=460, h=200, ymax=30, suffix="%")
-    c_dpar = svg_bars(["Dem", "Rep"], [round(float(dp.loc[b, "dropoff_pct"]), 1) for b in ["Dem", "Rep"]],
-                      [DEM, REP], w=460, h=200, ymax=30, suffix="%")
-    c_spar = svg_bars(["Dem", "Rep"], [round(float(sp.loc[b, "surge_pct"]), 1) for b in ["Dem", "Rep"]],
-                      [DEM, REP], w=460, h=200, ymax=20, suffix="%")
+    # grouped Dem-vs-Rep series by age band
+    def grp(df):
+        p = df.pivot(index="age_band", columns="party_bucket", values="rate").reindex(BAND)
+        return ([round(float(x), 1) for x in p["Dem"]], [round(float(x), 1) for x in p["Rep"]])
+    dd, dr = grp(dap)
+    sd, sr = grp(sap)
+    c_dgrp = svg_grouped(BAND, dd, dr, "Dem", "Rep", w=470, h=215, ymax=50, c1=DEM, c2=REP, gstep=10)
+    c_sgrp = svg_grouped(BAND, sd, sr, "Dem", "Rep", w=470, h=215, ymax=30, c1=DEM, c2=REP, gstep=10)
     top = dcc.head(8)
     c_dloc = svg_bars([shorten(n) for n in top.locality], [round(int(x) / 1000) for x in top.dropped_off],
                       RED, w=920, h=180, ymax=max(top.dropped_off) / 1000 * 1.25, suffix="k")
@@ -61,6 +59,7 @@ def main():
     rep_d = round(float(dp.loc["Rep", "dropoff_pct"]))
     dem_s = round(float(sp.loc["Dem", "surge_pct"]), 1)
     rep_s = round(float(sp.loc["Rep", "surge_pct"]), 1)
+    yd_dem, yd_rep = dd[0], dr[0]   # 18-24 drop-off Dem / Rep
 
     html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,22 +98,15 @@ def main():
   <div class="card net"><div class="big">{net:+,}</div><div class="lbl">net change vs 2025G (VAN-matched)</div></div>
 </div>
 
-<h2 style="color:{RED}">Who dropped off &nbsp;<span style="font-weight:400;font-size:12px;color:#5a6b7b">— 2025 General voters who didn't return</span></h2>
 <div class="grid">
-  <div class="panel"><h3>Drop-off rate by age</h3><p class="cap">% of each band's 2025G voters who skipped the referendum</p>{c_dage}</div>
-  <div class="panel"><h3>Drop-off rate by party</h3><p class="cap">Van party ID + Dem-support score</p>{c_dpar}</div>
+  <div class="panel"><h3 style="color:{RED}">Drop-off rate by age &amp; party</h3><p class="cap">% of each band's 2025G voters who skipped the referendum — Dem vs Rep</p>{c_dgrp}</div>
+  <div class="panel"><h3 style="color:{GRN}">Surge rate by age &amp; party</h3><p class="cap">% of each band's referendum voters who skipped 2025G — Dem vs Rep</p>{c_sgrp}</div>
 </div>
-<div class="panel" style="margin-top:8px"><h3>Where the lost voters are — top localities by drop-off count</h3><p class="cap">thousands of 2025G voters who didn't return</p>{c_dloc}</div>
-
-<h2 style="color:{GRN}">Who surged in &nbsp;<span style="font-weight:400;font-size:12px;color:#5a6b7b">— referendum voters who skipped 2025G</span></h2>
-<div class="grid">
-  <div class="panel"><h3>Surge rate by age</h3><p class="cap">% of each band's referendum voters who skipped 2025G</p>{c_sage}</div>
-  <div class="panel"><h3>Surge rate by party</h3><p class="cap">Van party ID + Dem-support score</p>{c_spar}</div>
-</div>
+<div class="panel" style="margin-top:10px"><h3 style="color:{RED}">Where the lost voters are — top localities by drop-off count</h3><p class="cap">thousands of 2025G voters who didn't return</p>{c_dloc}</div>
 
 <div class="findings"><b>What it means</b>
 <ul>
-  <li><b>Drop-off skews young and Democratic.</b> {dem_d}% of Dem 2025G voters dropped vs {rep_d}% of Republicans, and 42% of 18–24s. The Yes win came <i>despite</i> losing more of the Dem base — cushioned by its size.</li>
+  <li><b>Drop-off skews young and Democratic — at every age.</b> Democrats dropped off more than Republicans in every band (overall {dem_d}% vs {rep_d}%), widest among the young: {yd_dem:.0f}% of Dem 18–24s vs {yd_rep:.0f}% of Rep. The Yes win came <i>despite</i> losing more of the Dem base — cushioned by its size.</li>
   <li><b>Surge skews young but slightly Republican.</b> New-to-2025G referendum voters were {rep_s}% of Rep voters vs {dem_s}% of Dems — Democrats lost more of their base <i>and</i> replaced less of it.</li>
   <li><b>Re-mobilization target:</b> young, Dem-leaning 2025 voters — highest volume in Fairfax / Loudoun / Prince William, highest rate in college towns (Harrisonburg, Charlottesville, Williamsburg). Voter-level list available (held privately, VAN-ready).</li>
 </ul></div>

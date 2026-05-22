@@ -342,6 +342,18 @@ Top 12 localities by drop-off **rate** (min 5,000 2025G voters):
 | Loudoun | 169,052 | 39,141 | 23.2 |
 | Wise | 11,092 | 2,545 | 22.9 |
 
+By age × party — drop-off rate within each age band:
+
+| age_band | Dem_dropoff_pct | Rep_dropoff_pct | Dem_minus_Rep_pp |
+|---|---|---|---|
+| 18-24 | 44.6 | 37 | 7.6 |
+| 25-34 | 34.3 | 29.2 | 5.1 |
+| 35-44 | 25.6 | 22.7 | 2.9 |
+| 45-54 | 22.1 | 18.4 | 3.7 |
+| 55-64 | 17.2 | 13.4 | 3.8 |
+| 65-74 | 12.3 | 9.9 | 2.4 |
+| 75+ | 14 | 12.6 | 1.4 |
+
 **Takeaway:** drop-off skews young (42.0% of 18–24) and Democratic (22.3% Dem vs 17.1% Rep) — the re-mobilization universe is young, Dem-leaning 2025 voters, concentrated in NoVa/urban localities (by count) and college towns (by rate).
 
 ## 5j. Surge — referendum voters who skipped the 2025 General
@@ -408,6 +420,18 @@ Top 12 localities by surge **count**:
 | Richmond (City) | 74,859 | 6,322 | 8.4 |
 | Spotsylvania | 54,521 | 6,304 | 11.6 |
 | Newport News (City) | 50,574 | 6,265 | 12.4 |
+
+By age × party — surge rate within each age band:
+
+| age_band | Dem_surge_pct | Rep_surge_pct | Dem_minus_Rep_pp |
+|---|---|---|---|
+| 18-24 | 22.5 | 28.1 | -5.6 |
+| 25-34 | 14.4 | 22.1 | -7.7 |
+| 35-44 | 11.2 | 16.2 | -5 |
+| 45-54 | 9.5 | 12.6 | -3.1 |
+| 55-64 | 8 | 9.5 | -1.5 |
+| 65-74 | 6.1 | 6.9 | -0.8 |
+| 75+ | 5.5 | 6.4 | -0.9 |
 
 **Takeaway:** surge (new-to-2025G) voters are disproportionately young (24.9% of 18–24 referendum voters skipped 2025G) and lean Rep (9.8% Dem vs 11.8% Rep). Net churn vs 2025G: ≈+358,466 (690,881 lost − 332,415 gained, VAN-matched).
 

@@ -492,6 +492,17 @@ def main():
     md.append("\nTop 12 localities by drop-off **rate** (min 5,000 2025G voters):\n")
     md.append(df_to_md(dcr[["locality", "g25_voters", "dropped_off", "dropoff_pct"]]))
 
+    BANDS7 = [b for b in BAND_ORDER if b != "Unknown"]
+    dap = q(hist, f"SELECT age_band, party_bucket, COUNT(*) g25, SUM(1-voted_ref) dropped FROM {DO} WHERE party_bucket IN ('Dem','Rep') GROUP BY age_band, party_bucket")
+    dap["rate"] = (dap.dropped / dap.g25 * 100).round(1)
+    sheets["5i_dropoff_age_party"] = dap.sort_values(["age_band", "party_bucket"])
+    dpiv = dap.pivot(index="age_band", columns="party_bucket", values="rate").reindex(BANDS7).reset_index()
+    dpiv.columns.name = None
+    dpiv = dpiv.rename(columns={"Dem": "Dem_dropoff_pct", "Rep": "Rep_dropoff_pct"})
+    dpiv["Dem_minus_Rep_pp"] = (dpiv.Dem_dropoff_pct - dpiv.Rep_dropoff_pct).round(1)
+    md.append("\nBy age × party — drop-off rate within each age band:\n")
+    md.append(df_to_md(dpiv))
+
     dem_dr = dpar.loc[dpar.party_bucket == "Dem", "dropoff_pct"].values
     rep_dr = dpar.loc[dpar.party_bucket == "Rep", "dropoff_pct"].values
     y_dr = dage.loc[dage.age_band == "18-24", "dropoff_pct"].values
@@ -546,6 +557,16 @@ def main():
     sheets["5j_surge_county_count"] = scc
     md.append("\nTop 12 localities by surge **count**:\n")
     md.append(df_to_md(scc[["locality", "ref_voters", "surge", "surge_pct"]]))
+
+    sap = q(hist, f"SELECT age_band, party_bucket, COUNT(*) refv, SUM(1-voted_2025g) surge FROM {SO} WHERE party_bucket IN ('Dem','Rep') GROUP BY age_band, party_bucket")
+    sap["rate"] = (sap.surge / sap.refv * 100).round(1)
+    sheets["5j_surge_age_party"] = sap.sort_values(["age_band", "party_bucket"])
+    spiv = sap.pivot(index="age_band", columns="party_bucket", values="rate").reindex(BANDS7).reset_index()
+    spiv.columns.name = None
+    spiv = spiv.rename(columns={"Dem": "Dem_surge_pct", "Rep": "Rep_surge_pct"})
+    spiv["Dem_minus_Rep_pp"] = (spiv.Dem_surge_pct - spiv.Rep_surge_pct).round(1)
+    md.append("\nBy age × party — surge rate within each age band:\n")
+    md.append(df_to_md(spiv))
 
     s_dem = spar.loc[spar.party_bucket == "Dem", "surge_pct"].values
     s_rep = spar.loc[spar.party_bucket == "Rep", "surge_pct"].values

@@ -27,8 +27,16 @@
   @page { size: letter; margin: 0; }
   /* print-only: scale the whole layout to fit a single US Letter page */
   @media print { body { background:#fff; } .page { padding: 8mm 12mm; max-width:none; zoom: 0.70; } }
-</style></head><body><div class="page">
+  
+  .nav { display:flex; gap:6px; margin:0 0 16px; border-bottom:2px solid #e3e9f0; }
+  .nav a { padding:7px 16px; font-size:13px; font-weight:600; color:#5a6b7b; text-decoration:none; border-radius:7px 7px 0 0; }
+  .nav a:hover { background:#eef2f7; }
+  .nav a.active { color:#fff; background:#2b6cb0; }
+  .nav a.home { margin-left:auto; font-weight:400; color:#7b8794; align-self:center; }
+  @media print { .nav { display:none !important; } }
 
+</style></head><body><div class="page">
+<div class="nav"><a href="Referendum2026_Summary.html" class="active">Summary</a><a href="Referendum2026_Churn_Brief.html">Voter Churn</a><a href="../index.html" class="home">All briefs ↑</a></div>
 <h1>Virginia Constitutional Amendment Referendum — April 21, 2026</h1>
 <div class="sub">Voter analysis from the SBE "List of Those Who Voted" (3,103,669 ballots) · DPVA · generated 2026-05-21</div>
 

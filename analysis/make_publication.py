@@ -34,6 +34,25 @@ REP = "#c0504d"
 IND = "#9aa3ad"
 GRID = "#dde3ea"
 
+# Shared web-only tab nav (hidden in print so the PDFs stay clean one-pagers).
+NAV_CSS = """
+  .nav { display:flex; gap:6px; margin:0 0 16px; border-bottom:2px solid #e3e9f0; }
+  .nav a { padding:7px 16px; font-size:13px; font-weight:600; color:#5a6b7b; text-decoration:none; border-radius:7px 7px 0 0; }
+  .nav a:hover { background:#eef2f7; }
+  .nav a.active { color:#fff; background:#2b6cb0; }
+  .nav a.home { margin-left:auto; font-weight:400; color:#7b8794; align-self:center; }
+  @media print { .nav { display:none !important; } }
+"""
+
+
+def nav_html(active):
+    def c(k):
+        return ' class="active"' if k == active else ''
+    return ('<div class="nav">'
+            f'<a href="Referendum2026_Summary.html"{c("summary")}>Summary</a>'
+            f'<a href="Referendum2026_Churn_Brief.html"{c("churn")}>Voter Churn</a>'
+            '<a href="../index.html" class="home">All briefs ↑</a></div>')
+
 
 def esc(s):
     return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -171,8 +190,9 @@ def main():
   @page {{ size: letter; margin: 0; }}
   /* print-only: scale the whole layout to fit a single US Letter page */
   @media print {{ body {{ background:#fff; }} .page {{ padding: 8mm 12mm; max-width:none; zoom: 0.70; }} }}
+  {NAV_CSS}
 </style></head><body><div class="page">
-
+{nav_html('summary')}
 <h1>Virginia Constitutional Amendment Referendum — April 21, 2026</h1>
 <div class="sub">Voter analysis from the SBE "List of Those Who Voted" ({s['total']:,} ballots) · DPVA · generated 2026-05-21</div>
 

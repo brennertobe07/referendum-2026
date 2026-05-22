@@ -2,12 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=analysis/Referendum2026_Summary.html">
-  <link rel="canonical" href="analysis/Referendum2026_Summary.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>April 21, 2026 Referendum — Voter Analysis</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family:'Segoe UI',Helvetica,Arial,sans-serif; color:#102a43; background:#eef2f7; margin:0; }
+    .wrap { max-width:900px; margin:0 auto; padding:40px 28px; }
+    h1 { font-size:24px; margin:0 0 4px; }
+    .sub { color:#5a6b7b; font-size:14px; margin:0 0 26px; }
+    .tiles { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .tile { display:block; background:#fff; border:1px solid #dde3ea; border-radius:12px; overflow:hidden;
+            text-decoration:none; color:#102a43; transition:box-shadow .15s, transform .15s; }
+    .tile:hover { box-shadow:0 8px 22px rgba(16,42,67,.14); transform:translateY(-2px); }
+    .tile img { width:100%; height:240px; object-fit:cover; object-position:top; border-bottom:1px solid #e3e9f0; background:#fff; }
+    .tile .body { padding:14px 18px 18px; }
+    .tile .t { font-size:17px; font-weight:700; }
+    .tile .d { font-size:13px; color:#5a6b7b; margin-top:5px; line-height:1.45; }
+    .more { font-size:13px; color:#5a6b7b; margin-top:26px; }
+    .more a { color:#2b6cb0; }
+    @media (max-width:680px){ .tiles{ grid-template-columns:1fr; } }
+  </style>
 </head>
-<body style="font-family:'Segoe UI',Arial,sans-serif;color:#102a43;margin:48px;">
-  <p>Redirecting to the
-     <a href="analysis/Referendum2026_Summary.html">April&nbsp;21, 2026 Virginia Constitutional Amendment Referendum — voter analysis brief</a>…</p>
+<body>
+  <div class="wrap">
+    <h1>Virginia Constitutional Amendment Referendum — April 21, 2026</h1>
+    <p class="sub">DPVA voter analysis · amendment <b>passed 51.69% Yes</b> on <b>51.06% turnout</b> (3.1M voters)</p>
+
+    <div class="tiles">
+      <a class="tile" href="analysis/Referendum2026_Summary.html">
+        <img src="analysis/Referendum2026_Summary_preview.png" alt="Summary brief preview">
+        <div class="body">
+          <div class="t">Summary brief</div>
+          <div class="d">Who showed up — turnout by age, vote method, party, and geography, plus the strongest Yes/No localities.</div>
+        </div>
+      </a>
+      <a class="tile" href="analysis/Referendum2026_Churn_Brief.html">
+        <img src="analysis/Referendum2026_Churn_Brief_preview.png" alt="Voter churn brief preview">
+        <div class="body">
+          <div class="t">Voter churn</div>
+          <div class="d">Drop-off &amp; surge vs the 2025 General — who the electorate lost (690,881) and gained (332,415) by April 2026.</div>
+        </div>
+      </a>
+    </div>
+
+    <p class="more">
+      Full written analysis (5a–5j):
+      <a href="https://github.com/brennertobe07/referendum-2026/blob/main/analysis/LTV2026_Ref_Analysis.md">LTV2026_Ref_Analysis.md</a>
+      &nbsp;·&nbsp; <a href="https://github.com/brennertobe07/referendum-2026">project repository</a>
+    </p>
+  </div>
 </body>
 </html>

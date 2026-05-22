@@ -556,6 +556,27 @@ def main():
               f"({s_dem[0] if len(s_dem) else 'n/a'}% Dem vs {s_rep[0] if len(s_rep) else 'n/a'}% Rep). "
               f"Net churn vs 2025G: ≈{dropn - surgen:+,} ({dropn:,} lost − {surgen:,} gained, VAN-matched).\n")
 
+    # Eligibility caveat: voters who turned 18 between the 2025 General (2025-11-04)
+    # and the referendum (2026-04-21) are 'surge' mechanically (couldn't vote 2025G).
+    ne = q(hist, """
+        SELECT
+          SUM(CASE WHEN d.dob > '2007-11-04' AND d.dob <= '2008-04-21' THEN 1 ELSE 0 END) AS newly_elig,
+          SUM(CASE WHEN b.age_band='18-24' THEN 1 ELSE 0 END) AS b1824,
+          SUM(CASE WHEN b.age_band='18-24' AND b.voted_2025g=0 THEN 1 ELSE 0 END) AS b1824_surge,
+          SUM(CASE WHEN b.age_band='18-24' AND d.dob <= '2007-11-04' THEN 1 ELSE 0 END) AS b1824_elig,
+          SUM(CASE WHEN b.age_band='18-24' AND d.dob <= '2007-11-04' AND b.voted_2025g=0 THEN 1 ELSE 0 END) AS b1824_elig_surge
+        FROM Historic.dbo.Surge_2026_Base b
+        JOIN Historic.dbo.LTV2026_Ref l ON l.IDENTIFICATION_NUMBER = b.StateFileID
+        CROSS APPLY (SELECT TRY_CONVERT(date, l.DOB, 101) AS dob) d""")
+    nelig = int(ne.newly_elig[0])
+    raw1824 = int(ne.b1824_surge[0]) / int(ne.b1824[0]) * 100
+    elig1824 = int(ne.b1824_elig_surge[0]) / int(ne.b1824_elig[0]) * 100
+    md.append(f"\n> _Eligibility note: **{nelig:,}** referendum voters turned 18 after the 2025 General "
+              f"(2025-11-04) — eligible for the referendum but not for 2025G — so they count as surge "
+              f"mechanically ({nelig/surgen*100:.1f}% of all surge). Excluding them, the 18–24 surge rate is "
+              f"**{elig1824:.1f}%** (vs {raw1824:.1f}% reported): the young tilt is overwhelmingly genuine, "
+              f"not an artifact of newly-eligible voters._\n")
+
     # ---------- write outputs ----------
     # Prepend the hand-authored Phase 6 executive summary if present.
     exec_path = PROJ / "analysis" / "_exec_summary.md"

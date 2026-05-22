@@ -119,7 +119,7 @@ def main():
   <li><b>Re-mobilization target:</b> young, Dem-leaning 2025 voters — highest volume in Fairfax / Loudoun / Prince William, highest rate in college towns (Harrisonburg, Charlottesville, Williamsburg). Voter-level list available (held privately, VAN-ready).</li>
 </ul></div>
 
-<div class="foot">Source: 2025-General vote history and 2026 referendum participation matched in the VAN voter file (Van party ID + Dem-support score). "Drop-off" and "surge" are limited to voters present in VAN; ~25k referendum voters with no VAN record (new registrations) are additional surge. Aggregate counts only — no individual voter data. Detail: <code>analysis/LTV2026_Ref_Analysis.md</code> §5i–5j.</div>
+<div class="foot"><b>Eligibility note:</b> the youngest surge band is modestly inflated by ~5,400 voters who turned 18 after the 2025 General (eligible for the referendum, not 2025G) — only 1.6% of all surge. Excluding them, the 18–24 surge rate is <b>22.8%</b> rather than 24.9%, so the young tilt is overwhelmingly genuine. &nbsp;Source: 2025-General vote history and 2026 referendum participation matched in the VAN voter file (Van party ID + Dem-support score). "Drop-off" and "surge" are limited to voters present in VAN; ~25k referendum voters with no VAN record (new registrations) are additional surge. Aggregate counts only — no individual voter data. Detail: <code>analysis/LTV2026_Ref_Analysis.md</code> §5i–5j.</div>
 
 </div></body></html>"""
     OUT.write_text(html, encoding="utf-8")

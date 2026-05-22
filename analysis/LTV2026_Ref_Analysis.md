@@ -410,3 +410,6 @@ Top 12 localities by surge **count**:
 | Newport News (City) | 50,574 | 6,265 | 12.4 |
 
 **Takeaway:** surge (new-to-2025G) voters are disproportionately young (24.9% of 18–24 referendum voters skipped 2025G) and lean Rep (9.8% Dem vs 11.8% Rep). Net churn vs 2025G: ≈+358,466 (690,881 lost − 332,415 gained, VAN-matched).
+
+
+> _Eligibility note: **5,375** referendum voters turned 18 after the 2025 General (2025-11-04) — eligible for the referendum but not for 2025G — so they count as surge mechanically (1.6% of all surge). Excluding them, the 18–24 surge rate is **22.8%** (vs 24.9% reported): the young tilt is overwhelmingly genuine, not an artifact of newly-eligible voters._

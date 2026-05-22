@@ -47,7 +47,7 @@ def party_case(dem_support_expr, likely="LikelyParty"):
             f"ELSE 'Unknown' END")
 
 PARTY_BASE = party_case("dem_support")                                  # base table (dem_support already float)
-PARTY_VAN = party_case("TRY_CONVERT(float, Clarity_DemSupport_26)")     # Van view (varchar score)
+PARTY_VAN = party_case("TRY_CONVERT(float, Dem_Support_26)")     # Van view (varchar score)
 PARTY_ORDER = ['Dem', 'Rep', 'Unknown']
 
 
@@ -104,10 +104,10 @@ def build_base(hist, voter):
         v.LikelyParty,
         CASE WHEN v.LikelyParty IN ('SD','LD') THEN 'Dem'
              WHEN v.LikelyParty IN ('SR','LR') THEN 'Rep'
-             WHEN TRY_CONVERT(float, v.Clarity_DemSupport_26) >= 50 THEN 'Dem'
-             WHEN TRY_CONVERT(float, v.Clarity_DemSupport_26) < 50 THEN 'Rep'
+             WHEN TRY_CONVERT(float, v.Dem_Support_26) >= 50 THEN 'Dem'
+             WHEN TRY_CONVERT(float, v.Dem_Support_26) < 50 THEN 'Rep'
              ELSE 'Unknown' END AS party_bucket,
-        TRY_CONVERT(float, v.Clarity_DemSupport_26) AS dem_support,
+        TRY_CONVERT(float, v.Dem_Support_26) AS dem_support,
         v.RaceName,
         ({gen4}) AS gen4,
         CASE WHEN ({prior}) > 0 THEN 1 ELSE 0 END AS prior_vote
@@ -216,11 +216,12 @@ def main():
     sheets = {}   # name -> DataFrame for xlsx
     md = []
     md.append("# Referendum 2026 — Voter Pattern Analysis (Phase 5)\n")
-    md.append(f"_Generated 2026-05-21. Base table `Historic.dbo.LTV2026_Ref_Base` "
+    md.append(f"_Generated 2026-05-22 (refreshed VAN image; Dem_Support_26 score). "
+              f"Base table `Historic.dbo.LTV2026_Ref_Base` "
               f"= {nbase:,} LTV voters enriched with Van party/history + RVL match._\n")
     md.append("> **Caveats:** turnout denominators use RVL `STATUS='Active'`; party uses the "
               "absentee-dashboard rule (SD/LD=Dem, SR/LR=Rep, then ND/U/I split by "
-              "`Clarity_DemSupport_26` at 50; only no-score/no-VAN = Unknown); baseline = 2025 "
+              "`Dem_Support_26` at 50; only no-score/no-VAN = Unknown); baseline = 2025 "
               "General (Van `General25`). COVINGTON CITY (580) and SUSSEX COUNTY (183) are "
               "under-reported in the LTV source (~1/3 of actual) — locality-level rows for "
               "them are unreliable; statewide/demographic results are unaffected (<0.1%).\n")
@@ -418,7 +419,7 @@ def main():
     sheets["5g_party"] = party
     md.append("## 5g. Party (dashboard methodology; denominator = Van registered)\n")
     md.append("Party assigned the same way as the absentee/cure dashboards: hard party ID "
-              "(SD/LD=Dem, SR/LR=Rep), then ND/U/I split by `Clarity_DemSupport_26` at 50; "
+              "(SD/LD=Dem, SR/LR=Rep), then ND/U/I split by `Dem_Support_26` at 50; "
               "only no-score / no-VAN-match is Unknown. Turnout % = LTV voters / Van registered.\n")
     md.append(df_to_md(party))
     dem_to = party.loc[party.party_bucket == "Dem", "turnout_pct"].values
@@ -555,8 +556,8 @@ def main():
     md.append(f"Of **{refv:,}** referendum voters present in VAN, **{surgen:,} ({surgen/refv*100:.1f}%)** "
               f"did **not** vote in the 2025 General — the newer / irregular voters this referendum activated "
               f"(vs {returning:,} who voted both). Surge rate below = skipped-2025G ÷ referendum voters in the "
-              f"group. (Referendum voters with no VAN record at all — ~25k new registrations — are additional "
-              f"surge not counted here.)\n")
+              f"group. (A further {nbase - refv:,} referendum voters have no VAN record at all — "
+              f"down from ~25k before the VAN refresh now ingested the new registrations.)\n")
 
     spar = q(hist, f"SELECT party_bucket, COUNT(*) ref_voters, SUM(1-voted_2025g) surge FROM {SO} GROUP BY party_bucket")
     spar["surge_pct"] = (spar.surge / spar.ref_voters * 100).round(1)

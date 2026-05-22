@@ -18,7 +18,7 @@ interactive HTML source: [`analysis/Referendum2026_Summary.html`](analysis/Refer
 full written analysis: [`analysis/LTV2026_Ref_Analysis.md`](analysis/LTV2026_Ref_Analysis.md).
 
 ### Companion brief — voter churn (drop-off & surge)
-Who the 2025 electorate lost (690,881 dropped off) and gained (332,415 surged in) by April 2026:
+Who the 2025 electorate lost (682,378 dropped off) and gained (357,726 surged in) by April 2026:
 
 ![Voter churn brief](analysis/Referendum2026_Churn_Brief_preview.png)
 

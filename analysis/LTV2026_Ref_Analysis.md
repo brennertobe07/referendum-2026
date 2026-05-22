@@ -16,15 +16,15 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 
 **Most interesting findings:**
 
-1. **Base mobilization, not a new electorate.** 76.0% of voters had voted in 3 or 4 of
-   the last 4 November generals; only 9.3% had voted in 0 or 1. First-time voters were
+1. **Base mobilization, not a new electorate.** 75.4% of voters had voted in 3 or 4 of
+   the last 4 November generals; only 10.0% had voted in 0 or 1. First-time voters were
    just **2.1%**. The referendum turned out the habitual electorate — it did not pull in
    new or marginal voters.
 2. **Republicans voted at higher intensity, but Democrats' larger base won it.**
    Using the absentee-dashboard party rule (party ID, then Dem-support score split at 50),
-   Rep turnout was **53.0%** vs Dem **45.1%** (an ~8 pp gap), yet the measure passed because
-   Dem-leaning registrants outnumber Republicans ~3.6M to 2.7M and were the **majority of
-   voters (52.7% vs 45.4%)** — consistent with Yes winning. Geography was sharply partisan:
+   Rep turnout was **52.9%** vs Dem **45.0%** (an ~8 pp gap), yet the measure passed because
+   Dem-leaning registrants outnumber Republicans ~3.7M to 2.7M and were the **majority of
+   voters (53.4% vs 46.6%)** — consistent with Yes winning. Geography was sharply partisan:
    strongest Yes in urban / NoVa localities (Petersburg 87%, Charlottesville 85%, Richmond
    83%, Arlington 80%), strongest No in southwest Virginia (Lee 11%, Scott 12%, Buchanan 12%).
 3. **Turnout climbs steeply with age.** 28.7% (18–24) → 72.0% (65–74), with women
@@ -32,15 +32,15 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 4. **Vote method skews old-early, young-day.** Statewide 54.9% voted election day,
    34.7% in-person early, 10.2% mail. The 65+ bands voted early/mail at far higher
    rates; under-35s concentrated on election day.
-5. **Voter churn vs 2025 (re-mobilization target).** 20.1% of 2025-General voters
-   (690,881) didn't return; meanwhile 332,415 referendum voters (10.8%) hadn't voted
-   the 2025 General — a **net change of ≈ −358k** vs the 2025 electorate. Drop-off
-   skewed **young** (42% of 18–24) and **Democratic** (22.3% vs 17.1% Rep), while the
-   surge skewed young but **slightly Republican** (11.8% vs 9.8%): Democrats lost more
+5. **Voter churn vs 2025 (re-mobilization target).** 19.9% of 2025-General voters
+   (682,378) didn't return; meanwhile 357,726 referendum voters (11.5%) hadn't voted
+   the 2025 General — a **net change of ≈ −325k** vs the 2025 electorate. Drop-off
+   skewed **young** (42% of 18–24) and **Democratic** (22.3% vs 17.0% Rep), while the
+   surge skewed young but **slightly Republican** (12.6% vs 10.6%): Democrats lost more
    of their 2025 base *and* replaced less of it, winning on base size. Highest drop-off
-   volume in NoVa/urban (Fairfax 101k); highest rate in college towns (Harrisonburg 28%,
-   Charlottesville/Williamsburg ~24%). Priority re-engagement universe: young, Dem-leaning
-   2025 voters. See §5i–5j (and the companion churn brief).
+   volume in NoVa/urban (Fairfax ~100k, ~81k of it Democratic); highest rate in college
+   towns (Harrisonburg, Charlottesville, Williamsburg). Priority re-engagement universe:
+   young, Dem-leaning 2025 voters. See §5i–5j (and the companion churn brief).
 
 **Data-quality issues to follow up:**
 - **COVINGTON CITY (580)** and **SUSSEX COUNTY (183)** are under-reported in the SBE LTV
@@ -56,35 +56,35 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 
 # Referendum 2026 — Voter Pattern Analysis (Phase 5)
 
-_Generated 2026-05-21. Base table `Historic.dbo.LTV2026_Ref_Base` = 3,101,912 LTV voters enriched with Van party/history + RVL match._
+_Generated 2026-05-22 (refreshed VAN image; Dem_Support_26 score). Base table `Historic.dbo.LTV2026_Ref_Base` = 3,101,912 LTV voters enriched with Van party/history + RVL match._
 
-> **Caveats:** turnout denominators use RVL `STATUS='Active'`; party uses the absentee-dashboard rule (SD/LD=Dem, SR/LR=Rep, then ND/U/I split by `Clarity_DemSupport_26` at 50; only no-score/no-VAN = Unknown); baseline = 2025 General (Van `General25`). COVINGTON CITY (580) and SUSSEX COUNTY (183) are under-reported in the LTV source (~1/3 of actual) — locality-level rows for them are unreliable; statewide/demographic results are unaffected (<0.1%).
+> **Caveats:** turnout denominators use RVL `STATUS='Active'`; party uses the absentee-dashboard rule (SD/LD=Dem, SR/LR=Rep, then ND/U/I split by `Dem_Support_26` at 50; only no-score/no-VAN = Unknown); baseline = 2025 General (Van `General25`). COVINGTON CITY (580) and SUSSEX COUNTY (183) are under-reported in the LTV source (~1/3 of actual) — locality-level rows for them are unreliable; statewide/demographic results are unaffected (<0.1%).
 
 ## 5a. First-time voters
 
-- **First-time (broad): 64,894 (2.1% of voters)** = 39,400 matched in Van with no prior vote + 25,494 with no Van record (likely new registrations after the Van snapshot).
-- Returning voters (≥1 prior election in Van): 3,037,018 (97.9%).
+- **First-time (broad): 64,598 (2.1% of voters)** = 64,495 matched in Van with no prior vote + 103 with no Van record (likely new registrations after the Van snapshot).
+- Returning voters (≥1 prior election in Van): 3,037,314 (97.9%).
 
 First-time voters by age band:
 
 | age_band | first_time |
 |---|---|
-| 18-24 | 28,208 |
-| 25-34 | 9,262 |
-| 35-44 | 7,453 |
-| 45-54 | 5,013 |
-| 55-64 | 4,859 |
-| 65-74 | 3,927 |
-| 75+ | 1,971 |
+| 18-24 | 28,172 |
+| 25-34 | 9,213 |
+| 35-44 | 7,417 |
+| 45-54 | 4,975 |
+| 55-64 | 4,797 |
+| 65-74 | 3,885 |
+| 75+ | 1,938 |
 | Unknown | 4,201 |
 
 First-time voters by party bucket:
 
 | party_bucket | first_time |
 |---|---|
-| Unknown | 26,740 |
-| Dem | 22,082 |
-| Rep | 16,072 |
+| Dem | 36,174 |
+| Rep | 28,315 |
+| Unknown | 109 |
 
 _Comparison: 108,974 of 5,984,412 active registered voters (1.8%) registered after the Nov 2025 general — the referendum's first-time share (2.1%) exceeds that baseline._
 
@@ -94,33 +94,33 @@ Turnout % = LTV voters / RVL active registered, by age (as of 2026-04-21). Basel
 
 | age_band | voted | registered | turnout_pct | baseline_2025G_pct | vs_baseline_pp |
 |---|---|---|---|---|---|
-| 18-24 | 176,619 | 614,479 | 28.7 | 33.5 | -4.8 |
-| 25-34 | 317,309 | 984,152 | 32.2 | 34.5 | -2.3 |
-| 35-44 | 442,923 | 996,216 | 44.5 | 46.9 | -2.4 |
-| 45-54 | 490,763 | 906,307 | 54.1 | 57.3 | -3.2 |
-| 55-64 | 619,681 | 970,283 | 63.9 | 65.6 | -1.7 |
+| 18-24 | 176,619 | 614,479 | 28.7 | 32 | -3.3 |
+| 25-34 | 317,309 | 984,152 | 32.2 | 34.1 | -1.9 |
+| 35-44 | 442,923 | 996,216 | 44.5 | 46.4 | -1.9 |
+| 45-54 | 490,763 | 906,307 | 54.1 | 57 | -2.9 |
+| 55-64 | 619,681 | 970,283 | 63.9 | 65.4 | -1.5 |
 | 65-74 | 608,678 | 845,492 | 72 | 72.8 | -0.8 |
-| 75+ | 441,737 | 648,585 | 68.1 | 70 | -1.9 |
+| 75+ | 441,737 | 648,585 | 68.1 | 70.5 | -2.4 |
 | Unknown | 4,202 | 18,898 | 22.2 | 0 | 22.2 |
 
 Referendum turnout by age × party (Van universe; Rep intensity higher at every age):
 
 | age_band | Dem_turnout_pct | Rep_turnout_pct | Rep_minus_Dem_pp |
 |---|---|---|---|
-| 18-24 | 24.1 | 29.3 | 5.2 |
-| 25-34 | 26.8 | 31.2 | 4.4 |
-| 35-44 | 39.5 | 43.4 | 3.9 |
-| 45-54 | 49.6 | 53.6 | 4 |
-| 55-64 | 58.4 | 64 | 5.6 |
-| 65-74 | 67.4 | 71.6 | 4.2 |
-| 75+ | 63.3 | 66.2 | 2.9 |
+| 18-24 | 24.7 | 30.5 | 5.8 |
+| 25-34 | 26.5 | 31 | 4.5 |
+| 35-44 | 39.1 | 43.1 | 4 |
+| 45-54 | 49.4 | 53.2 | 3.8 |
+| 55-64 | 58.3 | 63.8 | 5.5 |
+| 65-74 | 67.5 | 71.7 | 4.2 |
+| 75+ | 64.3 | 67.2 | 2.9 |
 
 ## 5c. Gender
 
 | gender | voted | registered | turnout_pct | baseline_2025G_pct | vs_baseline_pp |
 |---|---|---|---|---|---|
-| F | 1,663,406 | 3,150,405 | 52.8 | 55.4 | -2.6 |
-| M | 1,425,423 | 2,804,708 | 50.8 | 52 | -1.2 |
+| F | 1,663,406 | 3,150,405 | 52.8 | 55.1 | -2.3 |
+| M | 1,425,423 | 2,804,708 | 50.8 | 51.6 | -0.8 |
 
 ## 5d. Vote history pattern (last 4 Nov generals: 2022-2025)
 
@@ -128,13 +128,13 @@ Among LTV voters matched in Van:
 
 | generals_voted_of_4 | voters | pct |
 |---|---|---|
-| 0 | 61,556 | 2 |
-| 1 | 224,079 | 7.3 |
-| 2 | 452,566 | 14.7 |
-| 3 | 594,794 | 19.3 |
-| 4 | 1,743,423 | 56.7 |
+| 0 | 86,682 | 2.8 |
+| 1 | 224,150 | 7.2 |
+| 2 | 452,628 | 14.6 |
+| 3 | 594,892 | 19.2 |
+| 4 | 1,743,457 | 56.2 |
 
-**3-of-4 or 4-of-4: 2,338,217 (76.0%)** vs **0-of-4 or 1-of-4: 285,635 (9.3%)**. This referendum is a **base mobilization** story.
+**3-of-4 or 4-of-4: 2,338,349 (75.4%)** vs **0-of-4 or 1-of-4: 310,832 (10.0%)**. This referendum is a **base mobilization** story.
 
 ## 5e. Vote method (Election day=Polls, In-person early=AB_Inperson, Mail=AB_Mail)
 
@@ -155,9 +155,9 @@ By party bucket:
 
 | party_bucket | AB_Inperson | AB_Mail | AB_Other | Polls |
 |---|---|---|---|---|
-| Dem | 557,525 | 229,022 | 2,404 | 844,661 |
-| Rep | 505,008 | 85,194 | 1,847 | 817,171 |
-| Unknown | 13,592 | 3,018 | 69 | 42,401 |
+| Dem | 562,319 | 230,690 | 2,421 | 862,020 |
+| Rep | 513,769 | 86,535 | 1,898 | 842,144 |
+| Unknown | 37 | 9 | 1 | 69 |
 
 ## 5f. Geography
 
@@ -199,10 +199,10 @@ Strongest YES localities — voter profile:
 | CHARLOTTESVILLE CITY | 85.4 | 48.4 | 56 | 2.6 |
 | RICHMOND CITY | 83 | 48.8 | 56.8 | 2.1 |
 | FALLS CHURCH CITY | 80.8 | 52.5 | 52.4 | 2.8 |
-| ARLINGTON COUNTY | 79.9 | 48.8 | 52.2 | 2.9 |
+| ARLINGTON COUNTY | 79.9 | 48.8 | 52.2 | 2.8 |
 | ALEXANDRIA CITY | 79.0 | 51.4 | 55.4 | 2.6 |
 | NORFOLK CITY | 71.5 | 54.7 | 57.2 | 2.6 |
-| HAMPTON CITY | 70.7 | 56.3 | 58.2 | 2.5 |
+| HAMPTON CITY | 70.7 | 56.3 | 58.2 | 2.4 |
 | PORTSMOUTH CITY | 70.7 | 56.1 | 58.6 | 1.7 |
 | FAIRFAX COUNTY | 69.7 | 53.5 | 52.3 | 2.2 |
 
@@ -210,7 +210,7 @@ Strongest NO localities — voter profile:
 
 | name | yes_pct | avg_age | pct_female | pct_firsttime |
 |---|---|---|---|---|
-| LEE COUNTY | 11.0 | 57.2 | 50.2 | 2.3 |
+| LEE COUNTY | 11.0 | 57.2 | 50.2 | 2.2 |
 | SCOTT COUNTY | 11.5 | 57.6 | 49.8 | 2.1 |
 | BUCHANAN COUNTY | 11.9 | 58.1 | 49.4 | 1.7 |
 | TAZEWELL COUNTY | 12.4 | 58.2 | 51.6 | 1.9 |
@@ -223,15 +223,15 @@ Strongest NO localities — voter profile:
 
 ## 5g. Party (dashboard methodology; denominator = Van registered)
 
-Party assigned the same way as the absentee/cure dashboards: hard party ID (SD/LD=Dem, SR/LR=Rep), then ND/U/I split by `Clarity_DemSupport_26` at 50; only no-score / no-VAN-match is Unknown. Turnout % = LTV voters / Van registered.
+Party assigned the same way as the absentee/cure dashboards: hard party ID (SD/LD=Dem, SR/LR=Rep), then ND/U/I split by `Dem_Support_26` at 50; only no-score / no-VAN-match is Unknown. Turnout % = LTV voters / Van registered.
 
 | party_bucket | voted | registered | turnout_pct | share_of_voters_pct |
 |---|---|---|---|---|
-| Dem | 1,633,612 | 3,622,724 | 45.1 | 52.7 |
-| Rep | 1,409,220 | 2,659,242 | 53 | 45.4 |
-| Unknown | 59,080 | 104,410 | 56.6 | 1.9 |
+| Dem | 1,657,450 | 3,684,105 | 45 | 53.4 |
+| Rep | 1,444,346 | 2,728,191 | 52.9 | 46.6 |
+| Unknown | 116 | 16 | 725 | 0 |
 
-Rep turnout 53.0% vs Dem turnout 45.1% — skew of 7.9 pp toward Rep. But Democrats were the larger share of the electorate (52.7% of voters vs 45.4% Republican), consistent with the Yes side winning.
+Rep turnout 52.9% vs Dem turnout 45.0% — skew of 7.9 pp toward Rep. But Democrats were the larger share of the electorate (53.4% of voters vs 46.6% Republican), consistent with the Yes side winning.
 
 ## 5h. Anomaly scan
 
@@ -274,195 +274,194 @@ Precinct turnout: statewide mean 52.1%, SD 9.2pp (precincts with >=100 active re
 
 ## 5i. Drop-off — 2025 General voters who skipped the referendum
 
-Of **3,434,884** voters who cast a 2025 General ballot and are still registered in VAN, **2,744,003 returned (79.9%)** for the referendum and **690,881 dropped off (20.1%)**. (An ~80% hold from a Governor's-year general to an April special is high.) Drop-off rate below = skipped ÷ 2025G voters in the group.
+Of **3,426,461** voters who cast a 2025 General ballot and are still registered in VAN, **2,744,083 returned (80.1%)** for the referendum and **682,378 dropped off (19.9%)**. (An ~80% hold from a Governor's-year general to an April special is high.) Drop-off rate below = skipped ÷ 2025G voters in the group.
 
 By party (dashboard methodology):
 
 | party_bucket | g25_voters | dropped_off | dropoff_pct |
 |---|---|---|---|
-| Dem | 1,898,003 | 423,852 | 22.3 |
-| Rep | 1,499,364 | 256,065 | 17.1 |
-| Unknown | 37,517 | 10,964 | 29.2 |
+| Dem | 1,906,755 | 424,409 | 22.3 |
+| Rep | 1,519,706 | 257,969 | 17 |
 
 By age band:
 
 | age_band | g25_voters | dropped_off | dropoff_pct |
 |---|---|---|---|
-| 18-24 | 215,728 | 90,516 | 42 |
-| 25-34 | 386,335 | 125,803 | 32.6 |
-| 35-44 | 507,302 | 124,584 | 24.6 |
-| 45-54 | 549,620 | 113,205 | 20.6 |
-| 55-64 | 666,243 | 102,423 | 15.4 |
-| 65-74 | 636,905 | 71,222 | 11.2 |
-| 75+ | 472,749 | 63,128 | 13.4 |
-| Unknown | 2 | 0 | 0 |
+| 18-24 | 208,637 | 87,710 | 42 |
+| 25-34 | 384,234 | 125,706 | 32.7 |
+| 35-44 | 505,280 | 124,465 | 24.6 |
+| 45-54 | 547,394 | 112,808 | 20.6 |
+| 55-64 | 664,346 | 101,967 | 15.3 |
+| 65-74 | 638,302 | 70,058 | 11 |
+| 75+ | 478,267 | 59,664 | 12.5 |
+| Unknown | 1 | 0 | 0 |
 
 By gender:
 
 | gender | g25_voters | dropped_off | dropoff_pct |
 |---|---|---|---|
-| M | 1,563,439 | 302,556 | 19.4 |
-| F | 1,865,930 | 386,420 | 20.7 |
+| M | 1,558,834 | 297,910 | 19.1 |
+| F | 1,862,184 | 382,591 | 20.5 |
 
 By Congressional District:
 
 | CD | g25_voters | dropped_off | dropoff_pct |
 |---|---|---|---|
-| 001 | 396,961 | 70,343 | 17.7 |
-| 002 | 312,810 | 62,387 | 19.9 |
-| 003 | 239,973 | 52,758 | 22 |
-| 004 | 307,459 | 67,475 | 21.9 |
-| 005 | 345,424 | 59,746 | 17.3 |
-| 006 | 309,206 | 53,522 | 17.3 |
-| 007 | 302,051 | 63,427 | 21 |
-| 008 | 300,435 | 69,842 | 23.2 |
-| 009 | 290,769 | 51,804 | 17.8 |
-| 010 | 311,842 | 68,094 | 21.8 |
-| 011 | 317,954 | 71,483 | 22.5 |
+| 001 | 396,228 | 69,469 | 17.5 |
+| 002 | 311,946 | 61,597 | 19.7 |
+| 003 | 239,107 | 51,960 | 21.7 |
+| 004 | 306,713 | 66,709 | 21.7 |
+| 005 | 345,044 | 58,803 | 17 |
+| 006 | 308,674 | 52,728 | 17.1 |
+| 007 | 301,386 | 62,801 | 20.8 |
+| 008 | 299,251 | 69,103 | 23.1 |
+| 009 | 290,026 | 50,919 | 17.6 |
+| 010 | 310,993 | 67,486 | 21.7 |
+| 011 | 317,093 | 70,803 | 22.3 |
 
 Top 12 localities by drop-off **count** (where the lost voters are):
 
 | locality | g25_voters | dropped_off | dropoff_pct |
 |---|---|---|---|
-| Fairfax | 447,400 | 101,128 | 22.6 |
-| Loudoun | 169,052 | 39,141 | 23.2 |
-| Prince William | 166,160 | 37,715 | 22.7 |
-| Virginia Beach (City) | 170,015 | 36,114 | 21.2 |
-| Chesterfield | 170,654 | 33,429 | 19.6 |
-| Henrico | 148,965 | 30,621 | 20.6 |
-| Arlington | 99,732 | 23,237 | 23.3 |
-| Richmond (City) | 90,278 | 21,741 | 24.1 |
-| Chesapeake (City) | 96,441 | 19,838 | 20.6 |
-| Alexandria (City) | 62,937 | 14,991 | 23.8 |
-| Norfolk (City) | 63,595 | 14,522 | 22.8 |
-| Stafford | 63,319 | 13,274 | 21 |
+| Fairfax | 446,083 | 100,138 | 22.4 |
+| Loudoun | 168,650 | 38,862 | 23 |
+| Prince William | 165,513 | 37,313 | 22.5 |
+| Virginia Beach (City) | 169,391 | 35,630 | 21 |
+| Chesterfield | 170,422 | 33,114 | 19.4 |
+| Henrico | 148,487 | 30,238 | 20.4 |
+| Arlington | 99,223 | 22,954 | 23.1 |
+| Richmond (City) | 90,011 | 21,517 | 23.9 |
+| Chesapeake (City) | 96,216 | 19,609 | 20.4 |
+| Alexandria (City) | 62,719 | 14,852 | 23.7 |
+| Norfolk (City) | 63,393 | 14,321 | 22.6 |
+| Stafford | 63,115 | 13,138 | 20.8 |
 
 Top 12 localities by drop-off **rate** (min 5,000 2025G voters):
 
 | locality | g25_voters | dropped_off | dropoff_pct |
 |---|---|---|---|
-| Harrisonburg (City) | 13,087 | 3,702 | 28.3 |
-| Hopewell (City) | 6,662 | 1,674 | 25.1 |
-| Fredericksburg (City) | 10,562 | 2,637 | 25 |
-| Charlottesville (City) | 18,516 | 4,464 | 24.1 |
-| Richmond (City) | 90,278 | 21,741 | 24.1 |
-| Petersburg (City) | 10,009 | 2,408 | 24.1 |
-| Williamsburg (City) | 6,478 | 1,544 | 23.8 |
-| Alexandria (City) | 62,937 | 14,991 | 23.8 |
-| Buchanan | 5,423 | 1,291 | 23.8 |
-| Arlington | 99,732 | 23,237 | 23.3 |
-| Loudoun | 169,052 | 39,141 | 23.2 |
-| Wise | 11,092 | 2,545 | 22.9 |
+| Harrisonburg (City) | 13,140 | 3,634 | 27.7 |
+| Hopewell (City) | 6,646 | 1,659 | 25 |
+| Fredericksburg (City) | 10,559 | 2,625 | 24.9 |
+| Richmond (City) | 90,011 | 21,517 | 23.9 |
+| Charlottesville (City) | 18,646 | 4,428 | 23.7 |
+| Petersburg (City) | 9,956 | 2,363 | 23.7 |
+| Alexandria (City) | 62,719 | 14,852 | 23.7 |
+| Buchanan | 5,406 | 1,275 | 23.6 |
+| Williamsburg (City) | 6,572 | 1,537 | 23.4 |
+| Arlington | 99,223 | 22,954 | 23.1 |
+| Loudoun | 168,650 | 38,862 | 23 |
+| Wise | 11,056 | 2,510 | 22.7 |
 
 Top 12 localities by drop-off **count, split by party**:
 
 | locality | Dem | Rep | total |
 |---|---|---|---|
-| Fairfax | 80,994 | 18,911 | 99,905 |
-| Loudoun | 25,684 | 12,959 | 38,643 |
-| Prince William | 26,782 | 10,591 | 37,373 |
-| Virginia Beach (City) | 19,919 | 15,660 | 35,579 |
-| Chesterfield | 20,565 | 12,467 | 33,032 |
-| Henrico | 22,273 | 7,984 | 30,257 |
-| Arlington | 20,290 | 2,580 | 22,870 |
-| Richmond (City) | 19,326 | 2,009 | 21,335 |
-| Chesapeake (City) | 10,973 | 8,549 | 19,522 |
-| Alexandria (City) | 12,980 | 1,740 | 14,720 |
-| Norfolk (City) | 11,977 | 2,329 | 14,306 |
-| Stafford | 7,353 | 5,739 | 13,092 |
+| Fairfax | 81,345 | 18,793 | 100,138 |
+| Loudoun | 25,817 | 13,045 | 38,862 |
+| Prince William | 26,763 | 10,550 | 37,313 |
+| Virginia Beach (City) | 19,901 | 15,729 | 35,630 |
+| Chesterfield | 20,615 | 12,499 | 33,114 |
+| Henrico | 22,285 | 7,953 | 30,238 |
+| Arlington | 20,390 | 2,564 | 22,954 |
+| Richmond (City) | 19,507 | 2,010 | 21,517 |
+| Chesapeake (City) | 10,984 | 8,625 | 19,609 |
+| Alexandria (City) | 13,130 | 1,722 | 14,852 |
+| Norfolk (City) | 11,993 | 2,328 | 14,321 |
+| Stafford | 7,375 | 5,763 | 13,138 |
 
 By age × party — drop-off rate within each age band:
 
 | age_band | Dem_dropoff_pct | Rep_dropoff_pct | Dem_minus_Rep_pp |
 |---|---|---|---|
-| 18-24 | 44.6 | 37 | 7.6 |
-| 25-34 | 34.3 | 29.2 | 5.1 |
-| 35-44 | 25.6 | 22.7 | 2.9 |
-| 45-54 | 22.1 | 18.4 | 3.7 |
-| 55-64 | 17.2 | 13.4 | 3.8 |
-| 65-74 | 12.3 | 9.9 | 2.4 |
-| 75+ | 14 | 12.6 | 1.4 |
+| 18-24 | 44.8 | 37.1 | 7.7 |
+| 25-34 | 34.5 | 29.3 | 5.2 |
+| 35-44 | 25.7 | 22.9 | 2.8 |
+| 45-54 | 22.2 | 18.5 | 3.7 |
+| 55-64 | 17.2 | 13.5 | 3.7 |
+| 65-74 | 12.2 | 9.7 | 2.5 |
+| 75+ | 13.2 | 11.8 | 1.4 |
 
-**Takeaway:** drop-off skews young (42.0% of 18–24) and Democratic (22.3% Dem vs 17.1% Rep) — the re-mobilization universe is young, Dem-leaning 2025 voters, concentrated in NoVa/urban localities (by count) and college towns (by rate).
+**Takeaway:** drop-off skews young (42.0% of 18–24) and Democratic (22.3% Dem vs 17.0% Rep) — the re-mobilization universe is young, Dem-leaning 2025 voters, concentrated in NoVa/urban localities (by count) and college towns (by rate).
 
 ## 5j. Surge — referendum voters who skipped the 2025 General
 
-Of **3,076,418** referendum voters present in VAN, **332,415 (10.8%)** did **not** vote in the 2025 General — the newer / irregular voters this referendum activated (vs 2,744,003 who voted both). Surge rate below = skipped-2025G ÷ referendum voters in the group. (Referendum voters with no VAN record at all — ~25k new registrations — are additional surge not counted here.)
+Of **3,101,809** referendum voters present in VAN, **357,726 (11.5%)** did **not** vote in the 2025 General — the newer / irregular voters this referendum activated (vs 2,744,083 who voted both). Surge rate below = skipped-2025G ÷ referendum voters in the group. (A further 103 referendum voters have no VAN record at all — down from ~25k before the VAN refresh now ingested the new registrations.)
 
 By party (dashboard methodology):
 
 | party_bucket | ref_voters | surge | surge_pct |
 |---|---|---|---|
-| Dem | 1,633,612 | 159,461 | 9.8 |
-| Rep | 1,409,220 | 165,921 | 11.8 |
-| Unknown | 33,586 | 7,033 | 20.9 |
+| Dem | 1,657,450 | 175,104 | 10.6 |
+| Rep | 1,444,346 | 182,609 | 12.6 |
+| Unknown | 13 | 13 | 100 |
 
 By age band:
 
 | age_band | ref_voters | surge | surge_pct |
 |---|---|---|---|
-| 18-24 | 166,643 | 41,431 | 24.9 |
-| 25-34 | 315,837 | 55,305 | 17.5 |
-| 35-44 | 441,836 | 59,118 | 13.4 |
-| 45-54 | 490,247 | 53,832 | 11 |
-| 55-64 | 618,722 | 54,902 | 8.9 |
-| 65-74 | 605,380 | 39,697 | 6.6 |
-| 75+ | 435,593 | 25,972 | 6 |
-| Unknown | 2,160 | 2,158 | 99.9 |
+| 18-24 | 175,031 | 54,104 | 30.9 |
+| 25-34 | 316,406 | 57,878 | 18.3 |
+| 35-44 | 442,097 | 61,282 | 13.9 |
+| 45-54 | 489,973 | 55,387 | 11.3 |
+| 55-64 | 619,188 | 56,809 | 9.2 |
+| 65-74 | 609,813 | 41,569 | 6.8 |
+| 75+ | 445,911 | 27,308 | 6.1 |
+| Unknown | 3,390 | 3,389 | 100 |
 
 By gender:
 
 | gender | ref_voters | surge | surge_pct |
 |---|---|---|---|
-| M | 1,417,506 | 156,623 | 11 |
-| F | 1,654,723 | 175,213 | 10.6 |
+| M | 1,429,269 | 168,345 | 11.8 |
+| F | 1,668,186 | 188,593 | 11.3 |
 
 By Congressional District:
 
 | CD | ref_voters | surge | surge_pct |
 |---|---|---|---|
-| 001 | 357,830 | 31,212 | 8.7 |
-| 002 | 280,742 | 30,319 | 10.8 |
-| 003 | 212,185 | 24,970 | 11.8 |
-| 004 | 265,510 | 25,526 | 9.6 |
-| 005 | 320,603 | 34,925 | 10.9 |
-| 006 | 292,170 | 36,486 | 12.5 |
-| 007 | 269,849 | 31,225 | 11.6 |
-| 008 | 252,038 | 21,445 | 8.5 |
-| 009 | 278,028 | 39,063 | 14.1 |
-| 010 | 274,224 | 30,476 | 11.1 |
-| 011 | 273,239 | 26,768 | 9.8 |
+| 001 | 361,010 | 34,251 | 9.5 |
+| 002 | 282,484 | 32,135 | 11.4 |
+| 003 | 213,583 | 26,436 | 12.4 |
+| 004 | 267,204 | 27,200 | 10.2 |
+| 005 | 324,222 | 37,981 | 11.7 |
+| 006 | 294,703 | 38,757 | 13.2 |
+| 007 | 271,855 | 33,270 | 12.2 |
+| 008 | 254,465 | 24,317 | 9.6 |
+| 009 | 280,295 | 41,188 | 14.7 |
+| 010 | 276,618 | 33,111 | 12 |
+| 011 | 275,370 | 29,080 | 10.6 |
 
 Top 12 localities by surge **count**:
 
 | locality | ref_voters | surge | surge_pct |
 |---|---|---|---|
-| Fairfax | 383,154 | 36,882 | 9.6 |
-| Prince William | 145,697 | 17,252 | 11.8 |
-| Loudoun | 146,585 | 16,674 | 11.4 |
-| Virginia Beach (City) | 150,106 | 16,205 | 10.8 |
-| Chesterfield | 150,578 | 13,353 | 8.9 |
-| Henrico | 128,979 | 10,635 | 8.2 |
-| Chesapeake (City) | 86,216 | 9,613 | 11.1 |
-| Arlington | 83,257 | 6,762 | 8.1 |
-| Norfolk (City) | 55,646 | 6,573 | 11.8 |
-| Richmond (City) | 74,859 | 6,322 | 8.4 |
-| Spotsylvania | 54,521 | 6,304 | 11.6 |
-| Newport News (City) | 50,574 | 6,265 | 12.4 |
+| Fairfax | 386,306 | 40,361 | 10.4 |
+| Prince William | 146,725 | 18,525 | 12.6 |
+| Loudoun | 148,031 | 18,243 | 12.3 |
+| Virginia Beach (City) | 150,889 | 17,128 | 11.4 |
+| Chesterfield | 151,895 | 14,587 | 9.6 |
+| Henrico | 129,799 | 11,550 | 8.9 |
+| Chesapeake (City) | 86,819 | 10,212 | 11.8 |
+| Arlington | 84,105 | 7,836 | 9.3 |
+| Norfolk (City) | 56,069 | 6,997 | 12.5 |
+| Richmond (City) | 75,402 | 6,908 | 9.2 |
+| Spotsylvania | 54,899 | 6,655 | 12.1 |
+| Newport News (City) | 50,804 | 6,557 | 12.9 |
 
 By age × party — surge rate within each age band:
 
 | age_band | Dem_surge_pct | Rep_surge_pct | Dem_minus_Rep_pp |
 |---|---|---|---|
-| 18-24 | 22.5 | 28.1 | -5.6 |
-| 25-34 | 14.4 | 22.1 | -7.7 |
-| 35-44 | 11.2 | 16.2 | -5 |
-| 45-54 | 9.5 | 12.6 | -3.1 |
-| 55-64 | 8 | 9.5 | -1.5 |
-| 65-74 | 6.1 | 6.9 | -0.8 |
-| 75+ | 5.5 | 6.4 | -0.9 |
+| 18-24 | 28.2 | 34.8 | -6.6 |
+| 25-34 | 15.3 | 23 | -7.7 |
+| 35-44 | 11.8 | 16.8 | -5 |
+| 45-54 | 9.9 | 13.1 | -3.2 |
+| 55-64 | 8.4 | 10 | -1.6 |
+| 65-74 | 6.4 | 7.3 | -0.9 |
+| 75+ | 5.6 | 6.6 | -1 |
 
-**Takeaway:** surge (new-to-2025G) voters are disproportionately young (24.9% of 18–24 referendum voters skipped 2025G) and lean Rep (9.8% Dem vs 11.8% Rep). Net churn vs 2025G: ≈+358,466 (690,881 lost − 332,415 gained, VAN-matched).
+**Takeaway:** surge (new-to-2025G) voters are disproportionately young (30.9% of 18–24 referendum voters skipped 2025G) and lean Rep (10.6% Dem vs 12.6% Rep). Net churn vs 2025G: ≈+324,652 (682,378 lost − 357,726 gained, VAN-matched).
 
 
-> _Eligibility note: **5,375** referendum voters turned 18 after the 2025 General (2025-11-04) — eligible for the referendum but not for 2025G — so they count as surge mechanically (1.6% of all surge). Excluding them, the 18–24 surge rate is **22.8%** (vs 24.9% reported): the young tilt is overwhelmingly genuine, not an artifact of newly-eligible voters._
+> _Eligibility note: **13,050** referendum voters turned 18 after the 2025 General (2025-11-04) — eligible for the referendum but not for 2025G — so they count as surge mechanically (3.6% of all surge). Excluding them, the 18–24 surge rate is **25.0%** (vs 30.9% reported): the young tilt is overwhelmingly genuine, not an artifact of newly-eligible voters._

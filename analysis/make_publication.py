@@ -222,7 +222,7 @@ def main():
 {brand_bar()}
 {nav_html('summary')}
 <h1>Virginia Constitutional Amendment Referendum — April 21, 2026</h1>
-<div class="sub">Voter analysis from the SBE "List of Those Who Voted" ({s['total']:,} ballots) · DPVA · generated 2026-05-21</div>
+<div class="sub">Voter analysis from the SBE "List of Those Who Voted" ({s['total']:,} ballots) · DPVA · generated 2026-05-22</div>
 
 <div class="cards">
   <div class="card"><div class="big">{s['yes_pct']}%</div><div class="lbl">voted YES — amendment <b>PASSED</b></div></div>

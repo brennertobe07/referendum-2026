@@ -97,7 +97,7 @@ def main():
 {brand_bar()}
 {nav_html('churn')}
 <h1>Referendum 2026 — Voter Churn: Drop-off &amp; Surge</h1>
-<div class="sub">Who left and who arrived between the 2025 General and the April 21, 2026 referendum · DPVA · 2026-05-21</div>
+<div class="sub">Who left and who arrived between the 2025 General and the April 21, 2026 referendum · DPVA · 2026-05-22</div>
 
 <div class="cards">
   <div class="card neutral"><div class="big">{retention:.0f}%</div><div class="lbl">of 2025 General voters returned ({g25_total:,} total)</div></div>
@@ -119,7 +119,7 @@ def main():
   <li><b>Re-mobilization target:</b> young, Dem-leaning 2025 voters — highest volume in Fairfax / Loudoun / Prince William and overwhelmingly Democratic there ({f_loc}: ~{f_dem}k Dem vs ~{f_rep}k Rep), highest rate in college towns (Harrisonburg, Charlottesville, Williamsburg). Voter-level list available (held privately, VAN-ready).</li>
 </ul></div>
 
-<div class="foot"><b>Eligibility note:</b> the youngest surge band is modestly inflated by ~5,400 voters who turned 18 after the 2025 General (eligible for the referendum, not 2025G) — only 1.6% of all surge. Excluding them, the 18–24 surge rate is <b>22.8%</b> rather than 24.9%, so the young tilt is overwhelmingly genuine. &nbsp;Source: 2025-General vote history and 2026 referendum participation matched in the VAN voter file (Van party ID + Dem-support score). "Drop-off" and "surge" are limited to voters present in VAN; ~25k referendum voters with no VAN record (new registrations) are additional surge. Aggregate counts only — no individual voter data. Detail: <code>analysis/LTV2026_Ref_Analysis.md</code> §5i–5j.</div>
+<div class="foot"><b>Eligibility note:</b> the youngest surge band is modestly inflated by ~13,050 voters who turned 18 after the 2025 General (eligible for the referendum, not 2025G) — 3.6% of all surge. Excluding them, the 18–24 surge rate is <b>25.0%</b> rather than 30.9%, so the young tilt is overwhelmingly genuine. &nbsp;Source: 2025-General vote history and 2026 referendum participation matched in the VAN voter file (Van party ID + Dem_Support_26 score; image refreshed 2026-05-22). "Drop-off" and "surge" are limited to voters present in VAN — now all but 103 referendum voters. Aggregate counts only — no individual voter data. Detail: <code>analysis/LTV2026_Ref_Analysis.md</code> §5i–5j.</div>
 
 </div></body></html>"""
     OUT.write_text(html, encoding="utf-8")

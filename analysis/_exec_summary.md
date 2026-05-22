@@ -16,15 +16,15 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 
 **Most interesting findings:**
 
-1. **Base mobilization, not a new electorate.** 76.0% of voters had voted in 3 or 4 of
-   the last 4 November generals; only 9.3% had voted in 0 or 1. First-time voters were
+1. **Base mobilization, not a new electorate.** 75.4% of voters had voted in 3 or 4 of
+   the last 4 November generals; only 10.0% had voted in 0 or 1. First-time voters were
    just **2.1%**. The referendum turned out the habitual electorate — it did not pull in
    new or marginal voters.
 2. **Republicans voted at higher intensity, but Democrats' larger base won it.**
    Using the absentee-dashboard party rule (party ID, then Dem-support score split at 50),
-   Rep turnout was **53.0%** vs Dem **45.1%** (an ~8 pp gap), yet the measure passed because
-   Dem-leaning registrants outnumber Republicans ~3.6M to 2.7M and were the **majority of
-   voters (52.7% vs 45.4%)** — consistent with Yes winning. Geography was sharply partisan:
+   Rep turnout was **52.9%** vs Dem **45.0%** (an ~8 pp gap), yet the measure passed because
+   Dem-leaning registrants outnumber Republicans ~3.7M to 2.7M and were the **majority of
+   voters (53.4% vs 46.6%)** — consistent with Yes winning. Geography was sharply partisan:
    strongest Yes in urban / NoVa localities (Petersburg 87%, Charlottesville 85%, Richmond
    83%, Arlington 80%), strongest No in southwest Virginia (Lee 11%, Scott 12%, Buchanan 12%).
 3. **Turnout climbs steeply with age.** 28.7% (18–24) → 72.0% (65–74), with women
@@ -32,15 +32,15 @@ brief anticipated — turnout was robust and broadly comparable to a November cy
 4. **Vote method skews old-early, young-day.** Statewide 54.9% voted election day,
    34.7% in-person early, 10.2% mail. The 65+ bands voted early/mail at far higher
    rates; under-35s concentrated on election day.
-5. **Voter churn vs 2025 (re-mobilization target).** 20.1% of 2025-General voters
-   (690,881) didn't return; meanwhile 332,415 referendum voters (10.8%) hadn't voted
-   the 2025 General — a **net change of ≈ −358k** vs the 2025 electorate. Drop-off
-   skewed **young** (42% of 18–24) and **Democratic** (22.3% vs 17.1% Rep), while the
-   surge skewed young but **slightly Republican** (11.8% vs 9.8%): Democrats lost more
+5. **Voter churn vs 2025 (re-mobilization target).** 19.9% of 2025-General voters
+   (682,378) didn't return; meanwhile 357,726 referendum voters (11.5%) hadn't voted
+   the 2025 General — a **net change of ≈ −325k** vs the 2025 electorate. Drop-off
+   skewed **young** (42% of 18–24) and **Democratic** (22.3% vs 17.0% Rep), while the
+   surge skewed young but **slightly Republican** (12.6% vs 10.6%): Democrats lost more
    of their 2025 base *and* replaced less of it, winning on base size. Highest drop-off
-   volume in NoVa/urban (Fairfax 101k); highest rate in college towns (Harrisonburg 28%,
-   Charlottesville/Williamsburg ~24%). Priority re-engagement universe: young, Dem-leaning
-   2025 voters. See §5i–5j (and the companion churn brief).
+   volume in NoVa/urban (Fairfax ~100k, ~81k of it Democratic); highest rate in college
+   towns (Harrisonburg, Charlottesville, Williamsburg). Priority re-engagement universe:
+   young, Dem-leaning 2025 voters. See §5i–5j (and the companion churn brief).
 
 **Data-quality issues to follow up:**
 - **COVINGTON CITY (580)** and **SUSSEX COUNTY (183)** are under-reported in the SBE LTV

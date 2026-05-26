@@ -2,7 +2,7 @@
 **Election:** Virginia Constitutional Amendment Referendum
 **Election Date:** 2026-04-21
 **Inventory Generated:** 2026-05-21
-**Status:** Wrap-up
+**Status:** Archived (handoff playbook: `handoff/Election_Analysis_Playbook.md`)
 
 ## 1. Overview
 
@@ -96,6 +96,7 @@ Phase 4 reconciliation against the SBE results file
 | `C:\DPVA_Projects\Referendum2026\analysis\make_publication.py` | PY | Publication | keep | Builds the main HTML brief from the xlsx + ENR summary |
 | `C:\DPVA_Projects\Referendum2026\analysis\Referendum2026_Churn_Brief.html` / `.pdf` / `_preview.png` | HTML/PDF/PNG | Publication | keep | One-page voter-churn brief (drop-off & surge) |
 | `C:\DPVA_Projects\Referendum2026\analysis\make_churn_brief.py` | PY | Publication | keep | Builds the churn brief from §5i/§5j xlsx sheets |
+| `C:\DPVA_Projects\Referendum2026\handoff\Election_Analysis_Playbook.md` | MD | Handoff | keep | **End-to-end playbook** — architecture, the 6 phases, methodology, publication mechanics, gotchas, next-cycle quick-start. Hand to a successor or use to clone for the next election. |
 
 ## 5. GitHub Repositories
 | Repo | Purpose | URL | Local Path | Last Commit |
@@ -163,4 +164,5 @@ All cycle tasks are now **Disabled** (post-election wind-down). Exported full li
 - [ ] SQL tables documented in section 3
 - [ ] Reference docs current
 - [~] Live URLs — **intentionally kept live** as a frozen historical reference (data frozen at the final 2026-05-12 snapshot; pipelines disabled). Verified 2026-05-21: enr (public) + absentee serve directly; cure behind Cloudflare Access. Revisit before the next cycle reuses the dashboards.
-- [ ] Inventory marked Archived — deferred while the reference dashboards remain live
+- [x] Inventory marked Archived (2026-05-25; reference dashboards intentionally kept live and noted above)
+- [x] Handoff playbook written (`handoff/Election_Analysis_Playbook.md`) — reproducible next-cycle quick-start

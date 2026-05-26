@@ -24,6 +24,9 @@ Who the 2025 electorate lost (682,378 dropped off) and gained (357,726 surged in
 
 PDF: [`analysis/Referendum2026_Churn_Brief.pdf`](analysis/Referendum2026_Churn_Brief.pdf) · HTML: [`analysis/Referendum2026_Churn_Brief.html`](analysis/Referendum2026_Churn_Brief.html) · detail in `LTV2026_Ref_Analysis.md` §5i–5j. _(Voter-level targeting list held privately, not in this repo.)_
 
+## Handoff / playbook
+A full reproducible playbook for running this analysis on the next cycle — architecture, the six phases, methodology rules, publication mechanics, the non-obvious gotchas, and a step-by-step next-cycle quick-start — is in [`handoff/Election_Analysis_Playbook.md`](handoff/Election_Analysis_Playbook.md).
+
 ## Contents
 | Path | What |
 |------|------|
